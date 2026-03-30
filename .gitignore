@@ -39,3 +39,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Claude Code / MCP internals
+.claude/
+.claude-flow/
+.mcp.json
+prompt.txt
