@@ -41,11 +41,21 @@ const projects = [
     links: [{ label: "Live", href: "#" }],
     gradient: "from-purple-500/20 to-transparent",
   },
+  {
+    title: "Pill Brook",
+    description:
+      "Full-stack website for a sustainable tilapia aquaculture farm in Gyakiti, Eastern Region, Ghana. Features online ordering, donation flow, and service showcase for premium farm-fresh fish.",
+    tech: ["Next.js", "Tailwind CSS", "Vercel"],
+    tags: ["Fullstack", "Agriculture"],
+    stat: "Live · Frequently, Eastern Region",
+    links: [{ label: "Live", href: "#" }],
+    gradient: "from-teal-500/20 to-transparent",
+  },
 ];
 
 const CARD_WIDTH = 580; // px, matches w-[580px] below
 const GAP = 48; // gap-12 = 48px
-const SCROLL_HEIGHT = `${projects.length * 100 + 60}vh`;
+const SCROLL_HEIGHT = `${projects.length * 90 + 60}vh`;
 
 // ─── Inner component — only mounts after hasMounted, so useScroll ref is safe ───
 const ProjectsContent = () => {

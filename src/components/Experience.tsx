@@ -1,12 +1,26 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { useHasMounted } from "@/hooks/useHasMounted";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 const experiences = [
+  {
+    company: "Turing Enterprises",
+    role: "LLM Engineer (RLHF)",
+    period: "Mar 2025 – Present",
+    location: "Remote · Palo Alto, CA",
+    status: "current",
+    color: "#7c3aed",
+    description:
+      "Contract LLM Engineer using Reinforcement Learning from Human Feedback (RLHF) to train and evaluate AWS-integrated language models. Building and improving full-edge AI applications deployed on AWS infrastructure for Amazon Web Services.",
+    technologies: ["Python", "RLHF", "AWS SageMaker", "LLM", "Transformers", "AWS Bedrock"],
+    bullets: [
+      "Annotating and ranking LLM outputs to improve model alignment via RLHF pipelines",
+      "Building full-edge AI applications integrated with AWS services (Bedrock, SageMaker, Lambda)",
+      "Evaluating model quality across reasoning, code generation, and instruction-following tasks",
+    ],
+  },
   {
     company: "Hubtel",
     role: "Site Reliability & Fullstack Engineer",
@@ -106,47 +120,37 @@ const experiences = [
 ];
 
 const NAVBAR = 80;
-const STACK_INDENT = 18; // each subsequent sticky top is 18px lower
+const STACK_INDENT = 14; // each card peeks 14px lower than the previous
 
 export const Experience = () => {
   const hasMounted = useHasMounted();
-  const sectionRef = useRef<HTMLElement>(null);
   const [tilt, setTilt] = useState<{ [key: number]: { x: number; y: number } }>({});
 
-  // ── GSAP ScrollTrigger for scroll-driven scale ────────────────────────────
+  // ── Native scroll-driven scale + dim ────────────────────────────────────
   useEffect(() => {
     if (!hasMounted) return;
 
-    gsap.registerPlugin(ScrollTrigger);
-
-    const ctx = gsap.context(() => {
-      const wrappers = gsap.utils.toArray<HTMLElement>(".exp-wrapper");
-
+    const onScroll = () => {
+      const wrappers = document.querySelectorAll<HTMLElement>(".exp-wrapper");
       wrappers.forEach((wrapper, i) => {
-        if (i === wrappers.length - 1) return; // last card never scales
-
+        if (i === wrappers.length - 1) return; // last card doesn't scale
         const card = wrapper.querySelector<HTMLElement>(".exp-card-inner");
         if (!card) return;
 
-        gsap.fromTo(
-          card,
-          { scale: 1, filter: "brightness(1)" },
-          {
-            scale: 0.87,
-            filter: "brightness(0.65)",
-            ease: "none",
-            scrollTrigger: {
-              trigger: wrapper,
-              start: "top top",
-              end: "bottom top",
-              scrub: 0.6,
-            },
-          }
-        );
-      });
-    }, sectionRef);
+        const rect = wrapper.getBoundingClientRect();
+        // progress: 0 when wrapper top hits viewport top, 1 when wrapper has fully scrolled past
+        const progress = Math.max(0, Math.min(1, -rect.top / rect.height));
+        const scale = 1 - 0.13 * progress;          // 1.0 → 0.87
+        const brightness = 1 - 0.38 * progress;     // 1.0 → 0.62
 
-    return () => ctx.revert();
+        card.style.transform = `scale(${scale})`;
+        card.style.filter = `brightness(${brightness})`;
+      });
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll(); // run once on mount
+    return () => window.removeEventListener("scroll", onScroll);
   }, [hasMounted]);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>, i: number) => {
@@ -163,7 +167,7 @@ export const Experience = () => {
     return <section id="experience" className="bg-background min-h-[600px]" />;
 
   return (
-    <section id="experience" ref={sectionRef} className="bg-background px-6 lg:px-24 pt-32">
+    <section id="experience" className="bg-background px-6 lg:px-24 pt-32">
       <div className="container mx-auto">
         {/* Section header */}
         <motion.div
@@ -190,7 +194,7 @@ export const Experience = () => {
               <div
                 key={i}
                 className="exp-wrapper"
-                style={{ paddingBottom: isLast ? "6rem" : "32vh" }}
+                style={{ paddingBottom: isLast ? "6rem" : "14vh" }}
               >
                 <div
                   style={{
