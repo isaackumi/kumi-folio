@@ -151,7 +151,7 @@ export const About = () => {
             {/* CV download */}
             <motion.a
               whileHover={{ y: -3 }}
-              href="/Isaac_Kumi_CV.pdf"
+              href="/cv/Isaac Kumi_CV.pdf"
               download
               className="group flex items-center justify-between p-5 bg-surface border border-border-subtle rounded-3xl hover:border-accent-blue/40 hover:bg-surface-alt transition-all shadow-md"
             >

@@ -191,7 +191,9 @@ export const Hero = () => {
             <div className="absolute -inset-0.5 rounded-[2rem] -z-10 image-ring" />
 
             {/* Main photo card */}
-            <div className="relative w-full h-full overflow-hidden rounded-[2rem] border border-border-subtle group shadow-[0_40px_80px_-20px_rgba(0,0,0,0.5)] bg-surface">
+            <div className="relative w-full h-full overflow-hidden rounded-[2rem] border border-border-subtle group shadow-[0_40px_80px_-20px_rgba(0,0,0,0.45)] bg-surface">
+              {/* Warm gradient background so photo edges blend cleanly */}
+              <div className="absolute inset-0 bg-gradient-to-br from-accent-blue/20 via-surface to-accent-green/10" />
               <Image
                 src="/images/isaac_kumi_avatar.JPG"
                 alt="Isaac Kumi"
@@ -202,8 +204,8 @@ export const Hero = () => {
               />
               {/* Dark-mode tint */}
               <div className="absolute inset-0 bg-accent-blue/10 mix-blend-color transition-opacity duration-700 group-hover:opacity-0 hidden dark:block" />
-              {/* Bottom fade */}
-              <div className="absolute inset-0 bg-gradient-to-t from-background/70 via-transparent to-transparent" />
+              {/* Bottom fade — blends photo into card */}
+              <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-background/10 to-transparent" />
 
               {/* Name card overlay at bottom */}
               <div className="absolute bottom-5 left-5 right-5 p-4 bg-surface/80 backdrop-blur-xl rounded-2xl border border-border-subtle flex items-center justify-between">
