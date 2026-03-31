@@ -10,16 +10,16 @@
 
 /* Theme Variables */
 :root {
-  --background: #fdfdfd;
-  --foreground: #111827;
-  --surface: #ffffff;
-  --surface-alt: #f3f4f6;
+  --background: #f5f0e8;
+  --foreground: #1c1810;
+  --surface: #faf6ee;
+  --surface-alt: #ede8dc;
   --accent-blue: #6366f1;
   --accent-green: #10b981;
-  --text-primary: #111827;
-  --text-body: #374151;
-  --text-muted: #6b7280;
-  --border-subtle: rgba(99, 102, 241, 0.1);
+  --text-primary: #1c1810;
+  --text-body: #3d3528;
+  --text-muted: #7a7060;
+  --border-subtle: rgba(99, 102, 241, 0.12);
   --edge-light: rgba(99, 102, 241, 0.35);
   
   --font-sans: "Inter", system-ui, sans-serif;
