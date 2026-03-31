@@ -1,10 +1,41 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Terminal } from "./Terminal";
 import Image from "next/image";
 import { HeroPattern } from "./HeroPattern";
 import { useHasMounted } from "@/hooks/useHasMounted";
+
+const socials = [
+  {
+    label: "GitHub",
+    href: "https://github.com/isaackumi",
+    icon: (
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z" />
+      </svg>
+    ),
+  },
+  {
+    label: "LinkedIn",
+    href: "https://linkedin.com/in/isaackumi",
+    icon: (
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+      </svg>
+    ),
+  },
+  {
+    label: "YouTube",
+    href: "https://www.youtube.com/@openingtag1090",
+    icon: (
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+      </svg>
+    ),
+  },
+];
+
+const roles = ["SRE", "DevOps Engineer", "Cloud Architect", "OSS Author", "Educator"];
 
 export const Hero = () => {
   const hasMounted = useHasMounted();
@@ -22,137 +53,217 @@ export const Hero = () => {
   return (
     <section className="relative min-h-screen flex flex-col items-center justify-center pt-24 pb-16 px-6 lg:px-24 overflow-hidden">
       <HeroPattern />
-      {/* Background Glow — animated aurora blobs */}
-      <div className="aurora-blob absolute top-1/4 -left-24 w-[500px] h-[500px] bg-accent-blue/20 blur-[130px] rounded-full" />
-      <div className="aurora-blob-alt absolute bottom-1/4 -right-24 w-[500px] h-[500px] bg-accent-green/12 blur-[130px] rounded-full" />
-      <div className="aurora-blob absolute top-3/4 left-1/3 w-72 h-72 bg-accent-blue/10 blur-[100px] rounded-full" />
 
-      <div className="container mx-auto grid lg:grid-cols-12 gap-8 lg:gap-12 items-center relative z-10">
-        {/* Left Column: Terminal & Content */}
-        <div className="lg:col-span-6 flex flex-col items-start space-y-8 lg:space-y-10">
+      {/* Aurora blobs */}
+      <div className="aurora-blob absolute top-1/4 -left-24 w-[500px] h-[500px] bg-accent-blue/15 blur-[140px] rounded-full" />
+      <div className="aurora-blob-alt absolute bottom-1/4 -right-24 w-[500px] h-[500px] bg-accent-green/10 blur-[140px] rounded-full" />
+
+      <div className="container mx-auto grid lg:grid-cols-12 gap-10 lg:gap-16 items-center relative z-10">
+
+        {/* ── Left Column ── */}
+        <div className="lg:col-span-6 flex flex-col items-start space-y-8">
+
+          {/* Location + availability */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1, ease: "easeOut" }}
-            className="w-full"
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="flex flex-wrap items-center gap-3"
           >
-            <Terminal />
+            <span className="flex items-center gap-2 text-[11px] font-mono uppercase tracking-widest text-text-muted border border-border-subtle rounded-full px-4 py-1.5 bg-surface/60 backdrop-blur-sm">
+              <span>🇬🇭</span> Accra, Ghana
+            </span>
+            <span className="flex items-center gap-2 text-[11px] font-mono uppercase tracking-widest text-accent-green border border-accent-green/30 rounded-full px-4 py-1.5 bg-accent-green/8">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent-green opacity-75" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-accent-green" />
+              </span>
+              Open to work
+            </span>
           </motion.div>
 
-          <div className="space-y-4 md:space-y-6">
+          {/* Name */}
+          <div className="space-y-3">
             <motion.h1
-              initial={{ opacity: 0, x: -50 }}
+              initial={{ opacity: 0, x: -40 }}
               animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.5, duration: 1, ease: "backOut" }}
-              className="text-5xl md:text-7xl lg:text-8xl font-display font-bold leading-none tracking-tighter"
+              transition={{ delay: 0.2, duration: 0.9, ease: [0.33, 1, 0.68, 1] }}
+              className="text-6xl md:text-7xl lg:text-8xl font-display font-bold leading-none tracking-tighter text-text-primary"
             >
-              Isaac <span className="gradient-text drop-shadow-[0_0_20px_rgba(108,99,255,0.5)]">Kumi</span>
+              Isaac<br />
+              <span className="gradient-text drop-shadow-[0_0_30px_rgba(99,102,241,0.4)]">Kumi.</span>
             </motion.h1>
 
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.7, duration: 0.8 }}
-              className="text-lg md:text-xl lg:text-2xl text-text-body max-w-2xl font-sans leading-relaxed"
+            {/* Scrolling role strip */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.5, duration: 0.7 }}
+              className="flex flex-wrap gap-2 pt-1"
             >
-              Building <span className="gradient-text font-bold drop-shadow-[0_0_10px_rgba(52,211,153,0.4)]">RELIABLE</span> autonomous systems and teaching the next generation of engineers.
-            </motion.p>
+              {roles.map((role, i) => (
+                <motion.span
+                  key={role}
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: 0.5 + i * 0.08, duration: 0.4, ease: "backOut" }}
+                  className="text-[10px] font-mono uppercase tracking-widest px-3 py-1 rounded-full border border-border-subtle text-text-muted bg-surface/50"
+                >
+                  {role}
+                </motion.span>
+              ))}
+            </motion.div>
           </div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
+          {/* Tagline */}
+          <motion.p
+            initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.9, duration: 0.8 }}
-            className="flex flex-wrap gap-4 md:gap-6 pt-2 md:pt-4"
+            transition={{ delay: 0.6, duration: 0.8 }}
+            className="text-lg md:text-xl text-text-body max-w-lg font-sans leading-relaxed"
           >
-            <button className="btn-shimmer px-8 md:px-10 py-3 md:py-4 bg-accent-blue text-white rounded-xl font-mono text-sm hover:glow glow-pulse transition-all duration-300 transform hover:-translate-y-1 active:scale-95 shadow-xl">
-              ./view-my-work.sh
-            </button>
-            <div className="flex items-center gap-3 px-5 md:px-6 py-3 bg-surface-alt/80 backdrop-blur-md border border-border-subtle rounded-xl group hover:border-accent-green/50 transition-all">
-              <span className="w-2.5 h-2.5 rounded-full bg-accent-green animate-ping absolute" />
-              <span className="w-2.5 h-2.5 rounded-full bg-accent-green relative" />
-              <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-text-muted group-hover:text-accent-green transition-colors">
-                Open to work
-              </span>
-            </div>
+            I build{" "}
+            <span className="gradient-text font-semibold">reliable, autonomous systems</span>{" "}
+            at scale — and teach the next generation of engineers how to do the same.
+          </motion.p>
+
+          {/* CTAs */}
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.75, duration: 0.7 }}
+            className="flex flex-wrap gap-4"
+          >
+            <a
+              href="#projects"
+              className="btn-shimmer inline-flex items-center gap-3 px-8 py-4 bg-accent-blue text-white rounded-2xl font-mono text-sm font-bold hover:bg-accent-blue/90 glow-pulse transition-all duration-300 hover:-translate-y-1 active:scale-95 shadow-xl shadow-accent-blue/25"
+            >
+              View My Work
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M5 12h14m-7-7 7 7-7 7" />
+              </svg>
+            </a>
+            <a
+              href="#contact"
+              className="inline-flex items-center gap-3 px-8 py-4 bg-surface border border-border-subtle text-text-primary rounded-2xl font-mono text-sm hover:border-accent-blue/50 hover:bg-surface-alt transition-all duration-300 hover:-translate-y-1"
+            >
+              Hire Me
+            </a>
+          </motion.div>
+
+          {/* Social links */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.95, duration: 0.7 }}
+            className="flex items-center gap-2"
+          >
+            {socials.map((s) => (
+              <a
+                key={s.label}
+                href={s.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={s.label}
+                className="w-10 h-10 flex items-center justify-center rounded-xl border border-border-subtle text-text-muted hover:text-accent-blue hover:border-accent-blue/40 hover:bg-accent-blue/8 transition-all duration-200"
+              >
+                {s.icon}
+              </a>
+            ))}
+            <div className="w-px h-5 bg-border-subtle mx-1" />
+            <span className="text-[10px] font-mono uppercase tracking-widest text-text-muted">Find me online</span>
           </motion.div>
         </div>
 
-        {/* Right Column: Image — hidden on small phones, visible from md up */}
+        {/* ── Right Column: Photo ── */}
         <div className="lg:col-span-6 relative flex justify-center lg:justify-end hidden md:flex">
           <motion.div
-            initial={{ opacity: 0, scale: 0.8, rotate: 5 }}
-            animate={{ opacity: 1, scale: 1, rotate: 0 }}
-            transition={{ delay: 1.1, duration: 1.2, ease: [0.34, 1.56, 0.64, 1] }}
-            className="relative w-full max-w-[420px] lg:max-w-[500px] aspect-[4/5]"
+            initial={{ opacity: 0, scale: 0.85, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            transition={{ delay: 0.4, duration: 1.1, ease: [0.34, 1.56, 0.64, 1] }}
+            className="relative w-full max-w-[400px] lg:max-w-[460px] aspect-[3/4]"
           >
-            {/* Image Frame Decoration */}
-            <div className="absolute -inset-5 rounded-3xl -z-10 glow-pulse opacity-40" style={{ background: "radial-gradient(ellipse at center, rgba(99,102,241,0.25) 0%, transparent 70%)" }} />
-            <div className="absolute inset-0 border border-accent-blue/30 rounded-3xl transform translate-x-6 translate-y-6 -z-10" />
+            {/* Offset shadow frame */}
+            <div className="absolute inset-0 rounded-[2rem] border border-accent-blue/20 transform translate-x-5 translate-y-5 -z-10" />
+            {/* Glow halo */}
+            <div className="absolute -inset-6 -z-10 rounded-[3rem]" style={{ background: "radial-gradient(ellipse at 60% 40%, rgba(99,102,241,0.18) 0%, transparent 70%)" }} />
+            {/* Rotating ring */}
+            <div className="absolute -inset-0.5 rounded-[2rem] -z-10 image-ring" />
 
-            {/* Rotating gradient ring */}
-            <div className="absolute -inset-0.5 rounded-3xl -z-10 image-ring" />
-
-            <div className="relative w-full h-full overflow-hidden rounded-3xl border border-border-subtle group shadow-[0_30px_70px_-15px_rgba(0,0,0,0.6)] bg-surface transform transition-transform duration-700 hover:scale-[1.02]">
+            {/* Main photo card */}
+            <div className="relative w-full h-full overflow-hidden rounded-[2rem] border border-border-subtle group shadow-[0_40px_80px_-20px_rgba(0,0,0,0.5)] bg-surface">
               <Image
                 src="/images/isaac_kumi_avatar.JPG"
                 alt="Isaac Kumi"
                 fill
-                sizes="(max-width: 768px) 100vw, 500px"
-                className="object-cover object-top transition-all duration-700 group-hover:scale-105 dark:grayscale dark:contrast-110 dark:group-hover:grayscale-0 dark:group-hover:contrast-100"
+                sizes="(max-width: 768px) 100vw, 460px"
+                className="object-cover object-top transition-transform duration-700 group-hover:scale-105 dark:grayscale dark:contrast-110 dark:group-hover:grayscale-0 dark:group-hover:contrast-100"
                 priority
               />
-              {/* Blue tint overlay — dark mode only */}
+              {/* Dark-mode tint */}
               <div className="absolute inset-0 bg-accent-blue/10 mix-blend-color transition-opacity duration-700 group-hover:opacity-0 hidden dark:block" />
-              {/* Bottom gradient */}
-              <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent opacity-70" />
-              <div className="absolute inset-0 ring-1 ring-inset ring-white/10" />
+              {/* Bottom fade */}
+              <div className="absolute inset-0 bg-gradient-to-t from-background/70 via-transparent to-transparent" />
+
+              {/* Name card overlay at bottom */}
+              <div className="absolute bottom-5 left-5 right-5 p-4 bg-surface/80 backdrop-blur-xl rounded-2xl border border-border-subtle flex items-center justify-between">
+                <div>
+                  <p className="font-display font-bold text-text-primary text-sm">Isaac Kumi</p>
+                  <p className="text-[10px] font-mono text-text-muted uppercase tracking-widest">SRE · DevOps · Cloud</p>
+                </div>
+                <div className="flex items-center gap-1.5">
+                  <span className="relative flex h-2.5 w-2.5">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent-green opacity-75" />
+                    <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-accent-green" />
+                  </span>
+                  <span className="text-[9px] font-mono text-accent-green uppercase tracking-widest">Available</span>
+                </div>
+              </div>
             </div>
 
-            {/* Float Elements for depth */}
-            <motion.div 
-              animate={{ y: [0, -15, 0], rotate: [0, 5, 0] }}
+            {/* Floating stat badges */}
+            <motion.div
+              animate={{ y: [0, -12, 0] }}
               transition={{ repeat: Infinity, duration: 5, ease: "easeInOut" }}
-              className="absolute -top-10 -right-10 p-5 bg-surface/80 backdrop-blur-xl rounded-2xl border border-border-subtle shadow-2xl text-accent-blue"
+              className="absolute -top-6 -right-6 lg:-right-10 px-4 py-3 bg-surface/90 backdrop-blur-xl rounded-2xl border border-border-subtle shadow-2xl"
             >
-              <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M13.983 11.078h2.119v2.13h-2.119zM10.73 11.078h2.13v2.13h-2.13zm-3.256 0h2.13v2.13h-2.13zm-3.235 0h2.13v2.13h-2.13zM10.73 7.843h2.13v2.13h-2.13zm-3.256 0h2.13v2.13h-2.13zm3.256-3.235h2.13v2.13h-2.13zm3.253 6.47h2.119v2.13h-2.119zm3.256 0h2.13v2.13h-2.13zM0 12.584c0 5.607 4.544 10.147 10.147 10.147 5.604 0 10.147-4.54 10.147-10.147 0-1.554-.343-3.033-.966-4.354l-.27-.584h-4.084V5.441h-2.13v2.13h-2.13v2.13h-2.119V7.843h-2.13v2.13h-2.13v2.13h-2.13v2.13h5.367c.725 0 1.341-.448 1.583-1.078h2.119c-.242.63-.858 1.078-1.583 1.078H5.441v2.13h8.542c.725 0 1.341-.448 1.583-1.078h2.13c-.242.63-.858 1.078-1.583 1.078h-2.13v2.13h2.13c.725 0 1.341-.448 1.583-1.078h.3c.091.319.141.656.141 1.006 0 2.119-1.72 3.839-3.836 3.839-1.127 0-2.134-.486-2.834-1.258l-.58-.636-.584.636c-.7.772-1.707 1.258-2.834 1.258-2.116 0-3.836-1.72-3.836-3.839 0-.35.05-.687.141-1.006h.3c.242.63.858 1.078 1.583 1.078h2.13v-2.13h-2.13c-.725 0-1.341.448-1.583 1.078H5.441c.242-.63.858-1.078 1.583-1.078h2.13v-2.13h-2.13c-.725 0-1.341.448-1.583 1.078h-3.23c-.623 1.321-.966 2.8-.966 4.354z"/></svg>
-            </motion.div>
-            
-            <motion.div 
-              animate={{ y: [0, 15, 0], x: [0, -10, 0] }}
-              transition={{ repeat: Infinity, duration: 7, ease: "easeInOut" }}
-              className="absolute -bottom-6 -left-12 p-4 bg-surface/80 backdrop-blur-xl rounded-xl border border-border-subtle shadow-2xl text-accent-green hidden md:block"
-            >
-              <div className="flex items-center gap-3 font-mono text-sm font-bold uppercase tracking-widest text-text-primary">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 7.378l-4.5 2.598v5.196L12 17.77l4.5-2.598v-5.196L12 7.378zM24 12l-6 10.392H6L0 12l6-10.392h12L24 12zM12 2.309L6.402 12 12 21.691 17.598 12 12 2.309z"/></svg>
-                <span className="w-1 h-4 bg-accent-green rounded-full" />
-                SRE·Cloud·NextJS
-              </div>
+              <p className="text-xl font-display font-bold text-accent-blue leading-none">18K+</p>
+              <p className="text-[9px] font-mono uppercase tracking-widest text-text-muted mt-0.5">OSS Downloads</p>
             </motion.div>
 
-            <motion.div 
-              animate={{ y: [0, 10, 0], x: [0, 10, 0] }}
-              transition={{ repeat: Infinity, duration: 6, ease: "easeInOut" }}
-              className="absolute top-1/2 -right-16 p-3 bg-surface/90 backdrop-blur-xl rounded-full border border-border-subtle shadow-xl text-accent-blue hidden lg:block"
+            <motion.div
+              animate={{ y: [0, 12, 0] }}
+              transition={{ repeat: Infinity, duration: 6, ease: "easeInOut", delay: 1 }}
+              className="absolute -bottom-4 -left-6 lg:-left-10 px-4 py-3 bg-surface/90 backdrop-blur-xl rounded-2xl border border-border-subtle shadow-2xl"
             >
-              <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M1.44 0v1.44h21.12V0H1.44zM0 2.88v18.24h1.44V2.88H0zm22.56 0v18.24H24V2.88h-1.44zM1.44 22.56h21.12V24H1.44v-1.44zM5.76 5.76v12.48h12.48V5.76H5.76zm1.44 1.44h9.6v9.6h-9.6v-9.6z"/></svg>
+              <p className="text-xl font-display font-bold text-accent-green leading-none">7+</p>
+              <p className="text-[9px] font-mono uppercase tracking-widest text-text-muted mt-0.5">Years building</p>
+            </motion.div>
+
+            <motion.div
+              animate={{ x: [0, 8, 0], y: [0, -6, 0] }}
+              transition={{ repeat: Infinity, duration: 7, ease: "easeInOut", delay: 0.5 }}
+              className="absolute top-1/3 -right-12 lg:-right-16 px-4 py-3 bg-surface/90 backdrop-blur-xl rounded-2xl border border-border-subtle shadow-xl hidden lg:block"
+            >
+              <p className="text-xl font-display font-bold text-text-primary leading-none">100+</p>
+              <p className="text-[9px] font-mono uppercase tracking-widest text-text-muted mt-0.5">Students taught</p>
             </motion.div>
           </motion.div>
         </div>
       </div>
 
-      {/* Scroll Indicator */}
+      {/* Scroll indicator */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 2, duration: 1 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center space-y-2"
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
       >
-        <span className="text-[10px] uppercase tracking-[0.3em] text-text-muted font-mono">Scroll</span>
+        <span className="text-[9px] uppercase tracking-[0.35em] text-text-muted font-mono">Scroll</span>
         <motion.div
           animate={{ y: [0, 8, 0] }}
           transition={{ repeat: Infinity, duration: 1.5 }}
-          className="w-px h-12 bg-gradient-to-b from-accent-blue to-transparent"
+          className="w-px h-10 bg-gradient-to-b from-accent-blue/60 to-transparent"
         />
       </motion.div>
     </section>

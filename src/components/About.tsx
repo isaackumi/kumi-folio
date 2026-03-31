@@ -2,16 +2,25 @@
 
 import { motion, useInView, animate } from "framer-motion";
 import { useHasMounted } from "@/hooks/useHasMounted";
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect } from "react";
 
 const stats = [
-  { label: "Years Experience", numeric: 7, suffix: "+", color: "text-accent-blue" },
-  { label: "Countries Worked", numeric: 3, suffix: "", color: "text-accent-green" },
-  { label: "Students Taught", numeric: 100, suffix: "+", color: "text-accent-blue" },
-  { label: "OSS Downloads", numeric: 18, suffix: "K+", color: "text-accent-green" },
+  { label: "Years Experience", numeric: 7,   suffix: "+",  color: "#6366f1" },
+  { label: "Countries Worked",  numeric: 3,   suffix: "",   color: "#10b981" },
+  { label: "Students Taught",   numeric: 100, suffix: "+",  color: "#6366f1" },
+  { label: "OSS Downloads",     numeric: 18,  suffix: "K+", color: "#10b981" },
 ];
 
-function CountUp({ to, suffix }: { to: number; suffix: string }) {
+const highlights = [
+  { icon: "⚙", text: "Production SRE across fintech, retail & edtech" },
+  { icon: "☁", text: "Multi-cloud infra on AWS & Azure at scale" },
+  { icon: "🔓", text: "18K+ downloads on PyWebGuard open-source security lib" },
+  { icon: "🎓", text: "Taught 100+ students at Ashesi University" },
+  { icon: "📡", text: "Kubernetes homelab running 24/7 for fun" },
+  { icon: "📺", text: "1.4K subscribers on OpeningTag YouTube channel" },
+];
+
+function CountUp({ to, suffix, color }: { to: number; suffix: string; color: string }) {
   const ref = useRef<HTMLSpanElement>(null);
   const inView = useInView(ref, { once: true, margin: "-60px" });
 
@@ -19,140 +28,162 @@ function CountUp({ to, suffix }: { to: number; suffix: string }) {
     if (!inView || !ref.current) return;
     const el = ref.current;
     const controls = animate(0, to, {
-      duration: 1.6,
+      duration: 1.8,
       ease: [0.16, 1, 0.3, 1],
-      onUpdate(v) {
-        el.textContent = Math.round(v) + suffix;
-      },
+      onUpdate(v) { el.textContent = Math.round(v) + suffix; },
     });
     return () => controls.stop();
   }, [inView, to, suffix]);
 
-  return <span ref={ref}>0{suffix}</span>;
+  return (
+    <span ref={ref} style={{ color }} className="text-4xl md:text-5xl font-display font-bold leading-none">
+      0{suffix}
+    </span>
+  );
 }
-
-const exploring = [
-  "Platform Engineering",
-  "Kubernetes",
-  "HomeLab",
-  "SRE",
-  "Rust",
-  "eBPF",
-];
 
 export const About = () => {
   const hasMounted = useHasMounted();
 
-  const containerVars = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: { staggerChildren: 0.1, delayChildren: 0.2 },
-    },
-  };
-
-  const itemVars = {
-    hidden: { y: 30, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: { duration: 0.6, ease: [0.33, 1, 0.68, 1] } as any,
-    },
-  };
-
-  if (!hasMounted) return <section id="about" className="py-32 px-6 lg:px-24 bg-surface/30 min-h-[600px]" />;
+  if (!hasMounted)
+    return <section id="about" className="py-32 px-6 lg:px-24 bg-surface/30 min-h-[600px]" />;
 
   return (
     <section id="about" className="py-32 px-6 lg:px-24 bg-surface/30 relative overflow-hidden">
-      <div className="container mx-auto">
+      {/* Subtle background texture */}
+      <div className="absolute inset-0 dot-grid pointer-events-none" />
+
+      <div className="container mx-auto relative z-10 space-y-16">
+
+        {/* Section label */}
         <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
-          variants={containerVars}
-          className="grid lg:grid-cols-12 gap-8"
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="flex items-center gap-4"
         >
-          {/* Main Bio Card */}
+          <span className="font-mono text-accent-blue font-bold tracking-widest uppercase text-sm">01.</span>
+          <h2 className="text-3xl font-display font-bold uppercase tracking-widest text-text-primary">
+            About_Me
+          </h2>
+          <div className="h-px bg-border-subtle flex-1" />
+        </motion.div>
+
+        {/* Main two-column layout */}
+        <div className="grid lg:grid-cols-12 gap-8 items-start">
+
+          {/* Left: Bio */}
           <motion.div
-            variants={itemVars}
-            className="lg:col-span-8 p-8 md:p-12 bg-surface border border-border-subtle rounded-3xl shadow-xl flex flex-col justify-center space-y-8 group hover:border-accent-blue/30 transition-all duration-500 lighting-edge"
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.8, ease: [0.33, 1, 0.68, 1] }}
+            className="lg:col-span-7 space-y-8"
           >
-            <div className="space-y-4">
-              <span className="font-mono text-accent-blue text-sm uppercase tracking-widest">01. Who_am_I</span>
-              <h2 className="text-4xl md:text-5xl font-display font-bold leading-tight text-text-primary">
-                I build systems that don&apos;t sleep — and teach people to build them too.
-              </h2>
+            {/* Pull quote */}
+            <h3 className="text-3xl md:text-4xl font-display font-bold leading-snug text-text-primary">
+              I build systems that{" "}
+              <span className="gradient-text">don&apos;t sleep</span>{" "}
+              — and teach people to build them too.
+            </h3>
+
+            {/* Bio paragraphs */}
+            <div className="space-y-5 text-text-body text-lg font-sans leading-relaxed">
+              <p>
+                I&apos;m a Ghanaian technologist working at the intersection of{" "}
+                <strong className="text-text-primary font-semibold">SRE, DevOps, cloud infrastructure</strong>, and
+                fullstack engineering. From fintech platforms in Accra to retail automation pipelines
+                in Santa Clara — I&apos;ve kept production systems alive, scaling, and shipping.
+              </p>
+              <p>
+                I wrote open-source Python security tooling downloaded <strong className="text-text-primary font-semibold">18,000+ times</strong>,
+                shipped a funded edtech platform, and spent years teaching hundreds of students to
+                write their first lines of code. I run a Kubernetes homelab for fun. The rare person
+                who can debug a failing pod <em>and</em> explain recursion to a freshman.
+              </p>
             </div>
 
-            <div className="grid md:grid-cols-2 gap-8 text-lg text-text-body font-sans leading-relaxed">
-              <p>
-                I&apos;m Isaac Kumi, a Ghanaian technologist spanning SRE, DevOps, cloud infrastructure,
-                fullstack engineering, and computer science education. From fintechs in Accra to retail
-                automation in Santa Clara, I&apos;ve kept production systems alive and scaling.
-              </p>
-              <p>
-                I built open-source Python security libraries with 18,000+ downloads, shipped a funded
-                edtech platform, and spent years teaching hundreds of students to write their first lines
-                of code. I run a Kubernetes homelab for fun. The rare person who can debug a failing pod
-                <em> and</em> explain recursion to a freshman.
-              </p>
-            </div>
-
-            {/* Currently exploring */}
-            <div>
-              <p className="text-[10px] font-mono uppercase tracking-widest text-text-muted mb-4">
-                Currently exploring
-              </p>
-              <div className="flex flex-wrap gap-2">
-                {exploring.map((chip) => (
-                  <motion.span
-                    key={chip}
-                    whileHover={{ y: -3 }}
-                    className="px-4 py-1.5 bg-accent-blue/10 border border-accent-blue/20 rounded-full text-xs font-mono text-accent-blue hover:bg-accent-blue/20 transition-colors cursor-default"
-                  >
-                    {chip}
-                  </motion.span>
-                ))}
-              </div>
+            {/* Highlight list */}
+            <div className="grid sm:grid-cols-2 gap-3 pt-2">
+              {highlights.map((h, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, y: 10 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.06, duration: 0.4 }}
+                  className="flex items-start gap-3 p-3 rounded-xl bg-surface border border-border-subtle hover:border-accent-blue/25 transition-colors group"
+                >
+                  <span className="text-base shrink-0 mt-0.5">{h.icon}</span>
+                  <span className="text-sm text-text-muted group-hover:text-text-body transition-colors leading-snug">
+                    {h.text}
+                  </span>
+                </motion.div>
+              ))}
             </div>
           </motion.div>
 
-          {/* Stats Bento Grid */}
-          <div className="lg:col-span-4 grid grid-cols-2 gap-4">
-            {stats.map((stat, i) => (
-              <motion.div
-                key={i}
-                variants={itemVars}
-                whileHover={{ y: -5, scale: 1.02 }}
-                className="p-6 bg-surface border border-border-subtle rounded-3xl flex flex-col items-center justify-center text-center shadow-lg hover:shadow-2xl hover:border-accent-blue/30 transition-all group lighting-edge"
-              >
-                <span className={`text-4xl font-display font-bold ${stat.color} group-hover:glow transition-all`}>
-                  <CountUp to={stat.numeric} suffix={stat.suffix} />
-                </span>
-                <span className="text-[10px] uppercase tracking-widest text-text-muted mt-2 font-mono">
-                  {stat.label}
-                </span>
-              </motion.div>
-            ))}
+          {/* Right: Stats + CV */}
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.8, delay: 0.1, ease: [0.33, 1, 0.68, 1] }}
+            className="lg:col-span-5 space-y-4"
+          >
+            {/* Stats grid */}
+            <div className="grid grid-cols-2 gap-4">
+              {stats.map((stat, i) => (
+                <motion.div
+                  key={i}
+                  whileHover={{ y: -4, scale: 1.03 }}
+                  className="p-6 bg-surface border border-border-subtle rounded-3xl flex flex-col items-center justify-center text-center shadow-md hover:shadow-xl hover:border-accent-blue/25 transition-all lighting-edge"
+                >
+                  <CountUp to={stat.numeric} suffix={stat.suffix} color={stat.color} />
+                  <span className="text-[9px] uppercase tracking-widest text-text-muted mt-2 font-mono leading-snug">
+                    {stat.label}
+                  </span>
+                </motion.div>
+              ))}
+            </div>
 
-            {/* CV download Card */}
+            {/* CV download */}
             <motion.a
-              variants={itemVars}
+              whileHover={{ y: -3 }}
               href="/Isaac_Kumi_CV.pdf"
               download
-              className="col-span-2 p-6 bg-accent-blue/10 border border-accent-blue/20 rounded-3xl flex items-center justify-between group hover:bg-accent-blue/20 transition-all cursor-pointer"
+              className="group flex items-center justify-between p-5 bg-surface border border-border-subtle rounded-3xl hover:border-accent-blue/40 hover:bg-surface-alt transition-all shadow-md"
             >
-              <span className="font-mono text-sm text-accent-blue uppercase tracking-widest font-bold">
-                Download CV.pdf
-              </span>
-              <div className="w-10 h-10 rounded-full bg-accent-blue text-white flex items-center justify-center transform group-hover:rotate-45 transition-transform">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <div className="space-y-1">
+                <p className="text-[10px] font-mono uppercase tracking-widest text-text-muted">Download</p>
+                <p className="font-display font-bold text-text-primary group-hover:text-accent-blue transition-colors">
+                  Isaac_Kumi_CV.pdf
+                </p>
+              </div>
+              <div className="w-11 h-11 rounded-2xl bg-accent-blue/10 border border-accent-blue/20 text-accent-blue flex items-center justify-center group-hover:bg-accent-blue group-hover:text-white group-hover:rotate-45 transition-all duration-300">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M5 12h14m-7-7 7 7-7 7" />
                 </svg>
               </div>
             </motion.a>
-          </div>
-        </motion.div>
+
+            {/* Location + timezone card */}
+            <div className="p-5 bg-surface border border-border-subtle rounded-3xl flex items-center gap-4">
+              <div className="w-11 h-11 rounded-2xl bg-surface-alt flex items-center justify-center text-xl shrink-0">
+                🇬🇭
+              </div>
+              <div>
+                <p className="font-display font-semibold text-text-primary text-sm">Accra, Ghana</p>
+                <p className="text-[10px] font-mono uppercase tracking-widest text-text-muted">GMT · West Africa Time</p>
+              </div>
+              <div className="ml-auto text-right">
+                <p className="text-[9px] font-mono uppercase tracking-widest text-text-muted">Remote-first</p>
+                <p className="text-[9px] font-mono text-accent-green uppercase tracking-widest">Available</p>
+              </div>
+            </div>
+          </motion.div>
+        </div>
       </div>
     </section>
   );
