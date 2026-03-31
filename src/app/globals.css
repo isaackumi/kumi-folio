@@ -11,16 +11,16 @@
 /* Theme Variables */
 :root {
   --background: #ede4d0;
-  --foreground: #18120a;
+  --foreground: #0a0703;
   --surface: #fdf8ef;
   --surface-alt: #e6dcc8;
-  --accent-blue: #5b5bd6;
-  --accent-green: #0ea871;
-  --text-primary: #18120a;
-  --text-body: #3b2f1c;
-  --text-muted: #897560;
-  --border-subtle: rgba(90, 70, 30, 0.14);
-  --edge-light: rgba(91, 91, 214, 0.35);
+  --accent-blue: #4f46e5;
+  --accent-green: #059669;
+  --text-primary: #0a0703;
+  --text-body: #1c1409;
+  --text-muted: #5c4f3a;
+  --border-subtle: rgba(80, 60, 20, 0.18);
+  --edge-light: rgba(79, 70, 229, 0.35);
   
   --font-sans: "Inter", system-ui, sans-serif;
   --font-display: "Clash Display", "Inter", sans-serif;

@@ -27,9 +27,9 @@ export const Hero = () => {
       <div className="aurora-blob-alt absolute bottom-1/4 -right-24 w-[500px] h-[500px] bg-accent-green/12 blur-[130px] rounded-full" />
       <div className="aurora-blob absolute top-3/4 left-1/3 w-72 h-72 bg-accent-blue/10 blur-[100px] rounded-full" />
 
-      <div className="container mx-auto grid lg:grid-cols-12 gap-12 items-center relative z-10">
+      <div className="container mx-auto grid lg:grid-cols-12 gap-8 lg:gap-12 items-center relative z-10">
         {/* Left Column: Terminal & Content */}
-        <div className="lg:col-span-6 flex flex-col items-start space-y-10">
+        <div className="lg:col-span-6 flex flex-col items-start space-y-8 lg:space-y-10">
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -38,22 +38,22 @@ export const Hero = () => {
           >
             <Terminal />
           </motion.div>
-          
-          <div className="space-y-6">
-            <motion.h1 
+
+          <div className="space-y-4 md:space-y-6">
+            <motion.h1
               initial={{ opacity: 0, x: -50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.5, duration: 1, ease: "backOut" }}
-              className="text-6xl md:text-8xl font-display font-bold leading-none tracking-tighter"
+              className="text-5xl md:text-7xl lg:text-8xl font-display font-bold leading-none tracking-tighter"
             >
               Isaac <span className="gradient-text drop-shadow-[0_0_20px_rgba(108,99,255,0.5)]">Kumi</span>
             </motion.h1>
-            
+
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.7, duration: 0.8 }}
-              className="text-xl md:text-2xl text-text-body max-w-2xl font-sans leading-relaxed"
+              className="text-lg md:text-xl lg:text-2xl text-text-body max-w-2xl font-sans leading-relaxed"
             >
               Building <span className="gradient-text font-bold drop-shadow-[0_0_10px_rgba(52,211,153,0.4)]">RELIABLE</span> autonomous systems and teaching the next generation of engineers.
             </motion.p>
@@ -63,12 +63,12 @@ export const Hero = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.9, duration: 0.8 }}
-            className="flex flex-wrap gap-6 pt-4"
+            className="flex flex-wrap gap-4 md:gap-6 pt-2 md:pt-4"
           >
-            <button className="btn-shimmer px-10 py-4 bg-accent-blue text-white rounded-xl font-mono text-sm hover:glow glow-pulse transition-all duration-300 transform hover:-translate-y-1 active:scale-95 shadow-xl">
+            <button className="btn-shimmer px-8 md:px-10 py-3 md:py-4 bg-accent-blue text-white rounded-xl font-mono text-sm hover:glow glow-pulse transition-all duration-300 transform hover:-translate-y-1 active:scale-95 shadow-xl">
               ./view-my-work.sh
             </button>
-            <div className="flex items-center gap-3 px-6 py-3 bg-surface-alt/80 backdrop-blur-md border border-border-subtle rounded-xl group hover:border-accent-green/50 transition-all">
+            <div className="flex items-center gap-3 px-5 md:px-6 py-3 bg-surface-alt/80 backdrop-blur-md border border-border-subtle rounded-xl group hover:border-accent-green/50 transition-all">
               <span className="w-2.5 h-2.5 rounded-full bg-accent-green animate-ping absolute" />
               <span className="w-2.5 h-2.5 rounded-full bg-accent-green relative" />
               <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-text-muted group-hover:text-accent-green transition-colors">
@@ -78,13 +78,13 @@ export const Hero = () => {
           </motion.div>
         </div>
 
-        {/* Right Column: Image */}
-        <div className="lg:col-span-6 relative flex justify-center lg:justify-end">
+        {/* Right Column: Image — hidden on small phones, visible from md up */}
+        <div className="lg:col-span-6 relative flex justify-center lg:justify-end hidden md:flex">
           <motion.div
             initial={{ opacity: 0, scale: 0.8, rotate: 5 }}
             animate={{ opacity: 1, scale: 1, rotate: 0 }}
             transition={{ delay: 1.1, duration: 1.2, ease: [0.34, 1.56, 0.64, 1] }}
-            className="relative w-full max-w-[500px] aspect-[4/5]"
+            className="relative w-full max-w-[420px] lg:max-w-[500px] aspect-[4/5]"
           >
             {/* Image Frame Decoration */}
             <div className="absolute -inset-5 rounded-3xl -z-10 glow-pulse opacity-40" style={{ background: "radial-gradient(ellipse at center, rgba(99,102,241,0.25) 0%, transparent 70%)" }} />
@@ -95,16 +95,17 @@ export const Hero = () => {
 
             <div className="relative w-full h-full overflow-hidden rounded-3xl border border-border-subtle group shadow-[0_30px_70px_-15px_rgba(0,0,0,0.6)] bg-surface transform transition-transform duration-700 hover:scale-[1.02]">
               <Image
-                src="/images/isaac_kumi_avatar.png"
+                src="/images/isaac_kumi_avatar.JPG"
                 alt="Isaac Kumi"
                 fill
                 sizes="(max-width: 768px) 100vw, 500px"
-                className="object-cover transition-all duration-1000 group-hover:scale-110 grayscale-[0.15] group-hover:grayscale-0"
+                className="object-cover object-top transition-all duration-700 group-hover:scale-105 dark:grayscale dark:contrast-110 dark:group-hover:grayscale-0 dark:group-hover:contrast-100"
                 priority
               />
-              {/* Gradient overlays */}
+              {/* Blue tint overlay — dark mode only */}
+              <div className="absolute inset-0 bg-accent-blue/10 mix-blend-color transition-opacity duration-700 group-hover:opacity-0 hidden dark:block" />
+              {/* Bottom gradient */}
               <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent opacity-70" />
-              <div className="absolute inset-0 bg-gradient-to-br from-accent-blue/5 via-transparent to-accent-green/5" />
               <div className="absolute inset-0 ring-1 ring-inset ring-white/10" />
             </div>
 
