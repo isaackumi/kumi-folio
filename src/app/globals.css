@@ -10,17 +10,17 @@
 
 /* Theme Variables */
 :root {
-  --background: #f5f0e8;
-  --foreground: #1c1810;
-  --surface: #faf6ee;
-  --surface-alt: #ede8dc;
-  --accent-blue: #6366f1;
-  --accent-green: #10b981;
-  --text-primary: #1c1810;
-  --text-body: #3d3528;
-  --text-muted: #7a7060;
-  --border-subtle: rgba(99, 102, 241, 0.12);
-  --edge-light: rgba(99, 102, 241, 0.35);
+  --background: #ede4d0;
+  --foreground: #18120a;
+  --surface: #fdf8ef;
+  --surface-alt: #e6dcc8;
+  --accent-blue: #5b5bd6;
+  --accent-green: #0ea871;
+  --text-primary: #18120a;
+  --text-body: #3b2f1c;
+  --text-muted: #897560;
+  --border-subtle: rgba(90, 70, 30, 0.14);
+  --edge-light: rgba(91, 91, 214, 0.35);
   
   --font-sans: "Inter", system-ui, sans-serif;
   --font-display: "Clash Display", "Inter", sans-serif;
