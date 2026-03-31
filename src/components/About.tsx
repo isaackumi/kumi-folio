@@ -8,7 +8,7 @@ const stats = [
   { label: "Years Experience", numeric: 7, suffix: "+", color: "text-accent-blue" },
   { label: "Countries Worked", numeric: 3, suffix: "", color: "text-accent-green" },
   { label: "Students Taught", numeric: 100, suffix: "+", color: "text-accent-blue" },
-  { label: "OSS Downloads", numeric: 8, suffix: "K+", color: "text-accent-green" },
+  { label: "OSS Downloads", numeric: 18, suffix: "K+", color: "text-accent-green" },
 ];
 
 function CountUp({ to, suffix }: { to: number; suffix: string }) {
@@ -91,7 +91,7 @@ export const About = () => {
                 automation in Santa Clara, I&apos;ve kept production systems alive and scaling.
               </p>
               <p>
-                I built open-source Python security libraries with 8,000+ downloads, shipped a funded
+                I built open-source Python security libraries with 18,000+ downloads, shipped a funded
                 edtech platform, and spent years teaching hundreds of students to write their first lines
                 of code. I run a Kubernetes homelab for fun. The rare person who can debug a failing pod
                 <em> and</em> explain recursion to a freshman.
