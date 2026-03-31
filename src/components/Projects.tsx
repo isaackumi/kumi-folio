@@ -11,7 +11,7 @@ const projects = [
       "Open-source Flask security middleware — a Web Application Firewall that protects against SQL injection, XSS, CSRF, and rate-limit attacks out of the box.",
     tech: ["Python", "Flask", "Redis", "Docker"],
     tags: ["Security", "Open Source"],
-    stat: "8,000+ downloads",
+    stat: "18,000+ downloads",
     links: [
       { label: "PyPI", href: "https://pypi.org/project/pywebguard/" },
       { label: "GitHub", href: "https://github.com/isaackumi/pywebguard" },
@@ -27,7 +27,7 @@ const projects = [
     stat: "Edge-native runtime",
     links: [
       { label: "GitHub", href: "https://github.com/isaackumi/fly-deno" },
-      { label: "YouTube Demo", href: "#" },
+      { label: "YouTube Demo", href: "https://youtu.be/b3y9oa52IwY" },
     ],
     gradient: "from-accent-green/20 to-transparent",
   },
@@ -123,11 +123,15 @@ const ProjectsContent = () => {
                 }}
                 className="w-[85vw] md:w-[580px] shrink-0 group cursor-pointer"
               >
-                {/* Card face */}
+                {/* Card face — clicking (not on a link button) opens primary link */}
                 <div
-                  className={`aspect-video bg-surface overflow-hidden rounded-3xl border border-border-subtle group-hover:border-accent-blue/50 transition-all relative shadow-2xl lighting-edge bg-gradient-to-br ${project.gradient}`}
+                  className={`aspect-video bg-surface overflow-hidden rounded-3xl border border-border-subtle group-hover:border-accent-blue/50 transition-all relative shadow-2xl lighting-edge bg-gradient-to-br ${project.gradient} cursor-pointer`}
+                  onClick={() => {
+                    const href = project.links[0].href !== "#" ? project.links[0].href : (project.links[1]?.href ?? null);
+                    if (href) window.open(href, "_blank", "noopener,noreferrer");
+                  }}
                 >
-                  <div className="absolute inset-0 flex flex-col justify-between p-8">
+                  <div className="absolute inset-0 flex flex-col justify-between p-6 md:p-8">
                     <div className="flex justify-between items-start flex-wrap gap-2">
                       <div className="flex gap-2 flex-wrap">
                         {project.tags.map((tag) => (
@@ -159,7 +163,7 @@ const ProjectsContent = () => {
                       <div className="text-[10px] font-mono text-accent-green uppercase tracking-widest">
                         {project.stat}
                       </div>
-                      <h3 className="text-4xl md:text-5xl font-display font-bold text-text-primary group-hover:text-accent-blue transition-colors">
+                      <h3 className="text-3xl md:text-5xl font-display font-bold text-text-primary group-hover:text-accent-blue transition-colors">
                         {project.title}
                       </h3>
                     </div>
@@ -167,8 +171,8 @@ const ProjectsContent = () => {
                 </div>
 
                 {/* Body */}
-                <div className="mt-8 space-y-4">
-                  <p className="text-text-body text-lg leading-relaxed font-sans">{project.description}</p>
+                <div className="mt-6 md:mt-8 space-y-4">
+                  <p className="text-text-body text-base md:text-lg leading-relaxed font-sans">{project.description}</p>
                   <div className="flex flex-wrap gap-3">
                     {project.tech.map((t) => (
                       <span

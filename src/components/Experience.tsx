@@ -1,170 +1,297 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import { useRef, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { useHasMounted } from "@/hooks/useHasMounted";
 
-const experiences = [
+// ─── Data ─────────────────────────────────────────────────────────────────────
+
+const groups = [
   {
-    company: "Turing Enterprises",
-    role: "LLM Engineer (RLHF)",
-    period: "Mar 2025 – Present",
-    location: "Remote · Palo Alto, CA",
-    status: "current",
-    color: "#7c3aed",
-    description:
-      "Contract LLM Engineer using Reinforcement Learning from Human Feedback (RLHF) to train and evaluate AWS-integrated language models. Building and improving full-edge AI applications deployed on AWS infrastructure for Amazon Web Services.",
-    technologies: ["Python", "RLHF", "AWS SageMaker", "LLM", "Transformers", "AWS Bedrock"],
-    bullets: [
-      "Annotating and ranking LLM outputs to improve model alignment via RLHF pipelines",
-      "Building full-edge AI applications integrated with AWS services (Bedrock, SageMaker, Lambda)",
-      "Evaluating model quality across reasoning, code generation, and instruction-following tasks",
-    ],
-  },
-  {
-    company: "Hubtel",
-    role: "Site Reliability & Fullstack Engineer",
-    period: "Mar 2024 – Present",
-    location: "Accra, Ghana",
-    status: "current",
+    key: "industry",
+    label: "Industry",
+    icon: "▲",
+    description: "Full-time engineering roles",
     color: "#6C63FF",
-    description:
-      "Leading reliability initiatives for Ghana's largest payment gateway. Architecting Kubernetes-native microservices, automating CI/CD pipelines, and maintaining 99.9% uptime across critical fintech systems.",
-    technologies: ["Kubernetes", "Azure", "Terraform", "Next.js", "SonarQube", "ArgoCD"],
-    bullets: [
-      "Reduced MTTR by 40% through proactive alerting and runbook automation",
-      "Architected a multi-tenant deployment platform serving 50+ microservices",
-      "Led migration of legacy monolith to cloud-native microservices on AKS",
+    experiences: [
+      {
+        company: "Hubtel",
+        role: "Site Reliability & Fullstack Engineer",
+        period: "Mar 2024 – Present",
+        location: "Accra, Ghana",
+        status: "current",
+        color: "#6C63FF",
+        description:
+          "Leading reliability initiatives for Ghana's largest payment gateway. Architecting Kubernetes-native microservices, automating CI/CD pipelines, and maintaining 99.9% uptime across critical fintech systems.",
+        technologies: ["Kubernetes", "Azure", "Terraform", "Next.js", "SonarQube", "ArgoCD"],
+        bullets: [
+          "Reduced MTTR by 40% through proactive alerting and runbook automation",
+          "Architected a multi-tenant deployment platform serving 50+ microservices",
+          "Led migration of legacy monolith to cloud-native microservices on AKS",
+        ],
+      },
+      {
+        company: "AiFi Inc.",
+        role: "Deployment Engineer",
+        period: "Mar 2023 – Mar 2024",
+        location: "Santa Clara, CA",
+        status: "past",
+        color: "#00FF88",
+        description:
+          "Managed edge computing infrastructure for autonomous retail stores powered by computer vision. Deployed and maintained ML inference pipelines across 50+ store locations in the US.",
+        technologies: ["Linux", "Docker", "Python", "Bash", "Ansible", "NVIDIA Jetson"],
+        bullets: [
+          "Deployed autonomous checkout systems across 50+ US retail locations",
+          "Optimized CV inference pipeline, reducing latency by 30%",
+          "Built Ansible playbooks reducing store deployment time from 4h to 45min",
+        ],
+      },
+      {
+        company: "ScaleCapacity",
+        role: "DevOps Engineer",
+        period: "2022 – 2023",
+        location: "California, USA (Remote)",
+        status: "past",
+        color: "#60a5fa",
+        description:
+          "Built and maintained CI/CD infrastructure for SaaS products. Drove infrastructure-as-code adoption and improved developer experience through platform engineering initiatives.",
+        technologies: ["Jenkins", "Kubernetes", "AWS", "Terraform", "Prometheus"],
+        bullets: [
+          "Built self-service developer platform reducing ticket volume by 50%",
+          "Managed Kubernetes clusters serving 500K+ daily active users",
+          "Implemented Prometheus/Grafana observability stack from scratch",
+        ],
+      },
     ],
   },
   {
-    company: "AiFi Inc.",
-    role: "Deployment Engineer",
-    period: "Mar 2023 – Mar 2024",
-    location: "Santa Clara, CA",
-    status: "past",
-    color: "#00FF88",
-    description:
-      "Managed edge computing infrastructure for autonomous retail stores powered by computer vision. Deployed and maintained ML inference pipelines across 50+ store locations in the US.",
-    technologies: ["Linux", "Docker", "Python", "Bash", "Ansible", "NVIDIA Jetson"],
-    bullets: [
-      "Deployed autonomous checkout systems across 50+ US retail locations",
-      "Optimized CV inference pipeline, reducing latency by 30%",
-      "Built Ansible playbooks reducing store deployment time from 4h to 45min",
+    key: "contract",
+    label: "Contract & Consulting",
+    icon: "◈",
+    description: "Freelance, consulting, and contract engagements",
+    color: "#7c3aed",
+    experiences: [
+      {
+        company: "Turing Enterprises",
+        role: "LLM Engineer (RLHF)",
+        period: "Mar 2025 – Present",
+        location: "Remote · Palo Alto, CA",
+        status: "current",
+        color: "#7c3aed",
+        description:
+          "Contract LLM Engineer using Reinforcement Learning from Human Feedback (RLHF) to train and evaluate AWS-integrated language models. Building and improving full-edge AI applications deployed on AWS infrastructure.",
+        technologies: ["Python", "RLHF", "AWS SageMaker", "LLM", "Transformers", "AWS Bedrock"],
+        bullets: [
+          "Annotating and ranking LLM outputs to improve model alignment via RLHF pipelines",
+          "Building full-edge AI applications integrated with AWS services (Bedrock, SageMaker, Lambda)",
+          "Evaluating model quality across reasoning, code generation, and instruction-following tasks",
+        ],
+      },
+      {
+        company: "AFRO Technologies",
+        role: "Cloud Consultant",
+        period: "Apr 2023 – Present",
+        location: "Accra, Ghana",
+        status: "current",
+        color: "#FFBD33",
+        description:
+          "Consulting on cloud architecture and DevOps transformation for Ghanaian startups. Helping teams adopt infrastructure-as-code, containerization, and modern CI/CD practices.",
+        technologies: ["AWS", "Terraform", "Docker", "GitHub Actions", "Node.js"],
+        bullets: [
+          "Designed AWS landing zone for 3 early-stage fintech startups",
+          "Reduced cloud spend by 35% through right-sizing and reserved instances",
+          "Implemented GitOps workflows cutting deployment errors by 60%",
+        ],
+      },
     ],
   },
   {
-    company: "AFRO Technologies",
-    role: "Cloud Consultant",
-    period: "Apr 2023 – Present",
-    location: "Accra, Ghana",
-    status: "current",
-    color: "#FFBD33",
-    description:
-      "Consulting on cloud architecture and DevOps transformation for Ghanaian startups. Helping teams adopt infrastructure-as-code, containerization, and modern CI/CD practices.",
-    technologies: ["AWS", "Terraform", "Docker", "GitHub Actions", "Node.js"],
-    bullets: [
-      "Designed AWS landing zone for 3 early-stage fintech startups",
-      "Reduced cloud spend by 35% through right-sizing and reserved instances",
-      "Implemented GitOps workflows cutting deployment errors by 60%",
-    ],
-  },
-  {
-    company: "ScaleCapacity",
-    role: "DevOps Engineer",
-    period: "2022 – 2023",
-    location: "California, USA (Remote)",
-    status: "past",
-    color: "#60a5fa",
-    description:
-      "Built and maintained CI/CD infrastructure for SaaS products. Drove infrastructure-as-code adoption and improved developer experience through platform engineering initiatives.",
-    technologies: ["Jenkins", "Kubernetes", "AWS", "Terraform", "Prometheus"],
-    bullets: [
-      "Built self-service developer platform reducing ticket volume by 50%",
-      "Managed Kubernetes clusters serving 500K+ daily active users",
-      "Implemented Prometheus/Grafana observability stack from scratch",
-    ],
-  },
-  {
-    company: "Ashesi University",
-    role: "Teaching & Research Assistant",
-    period: "May 2021 – Dec 2021",
-    location: "Berekuso, Ghana",
-    status: "past",
-    color: "#a78bfa",
-    description:
-      "Assisted in teaching Data Structures & Algorithms to 100+ undergraduate students. Supported faculty research on computational problem-solving and algorithm design.",
-    technologies: ["C++", "Python", "Algorithm Design", "Pedagogy"],
-    bullets: [
-      "Taught weekly tutorial sessions for Data Structures & Algorithms",
-      "Mentored 50 individual students, improving average grades by 20%",
-      "Co-developed new programming exercises adopted into the curriculum",
-    ],
-  },
-  {
-    company: "Ashesi CS Dept.",
-    role: "Programming Tutor",
-    period: "Feb 2019 – Jan 2021",
-    location: "Berekuso, Ghana",
-    status: "past",
+    key: "community",
+    label: "Education & Community",
+    icon: "◉",
+    description: "Teaching, mentorship, and academic work",
     color: "#f472b6",
-    description:
-      "Provided one-on-one and group tutoring for first and second-year CS students. Focused on foundational programming concepts in Python and C++.",
-    technologies: ["Python", "C++", "Object-Oriented Design"],
-    bullets: [
-      "Tutored 100+ students across 2 academic years",
-      "Ran weekly peer-learning sessions and hackathon prep workshops",
-      "Developed custom exercises to make recursion and pointers click",
+    experiences: [
+      {
+        company: "Ashesi University",
+        role: "Teaching & Research Assistant",
+        period: "May 2021 – Dec 2021",
+        location: "Berekuso, Ghana",
+        status: "past",
+        color: "#a78bfa",
+        description:
+          "Assisted in teaching Data Structures & Algorithms to 100+ undergraduate students. Supported faculty research on computational problem-solving and algorithm design.",
+        technologies: ["C++", "Python", "Algorithm Design", "Pedagogy"],
+        bullets: [
+          "Taught weekly tutorial sessions for Data Structures & Algorithms",
+          "Mentored 50 individual students, improving average grades by 20%",
+          "Co-developed new programming exercises adopted into the curriculum",
+        ],
+      },
+      {
+        company: "Ashesi CS Dept.",
+        role: "Programming Tutor",
+        period: "Feb 2019 – Jan 2021",
+        location: "Berekuso, Ghana",
+        status: "past",
+        color: "#f472b6",
+        description:
+          "Provided one-on-one and group tutoring for first and second-year CS students. Focused on foundational programming concepts in Python and C++.",
+        technologies: ["Python", "C++", "Object-Oriented Design"],
+        bullets: [
+          "Tutored 100+ students across 2 academic years",
+          "Ran weekly peer-learning sessions and hackathon prep workshops",
+          "Developed custom exercises to make recursion and pointers click",
+        ],
+      },
+      {
+        company: "OpeningTag",
+        role: "Technical YouTuber",
+        period: "2023 – Present",
+        location: "Remote · Accra, Ghana",
+        status: "current",
+        color: "#FF0000",
+        description:
+          "Running a YouTube channel focused on software engineering education, DevOps, cloud infrastructure, and open-source tooling. Produces demos, walkthroughs, and deep-dives for developers at all levels.",
+        technologies: ["YouTube", "DevOps", "Cloud", "Python", "Open Source"],
+        bullets: [
+          "1,400+ subscribers covering DevOps, cloud, and software engineering topics",
+          "Produced open-source demos including the Fly-Artisan framework walkthrough",
+          "Teaching systems thinking through real-world infrastructure and code walkthroughs",
+        ],
+      },
+      {
+        company: "Medium",
+        role: "Technical Writer",
+        period: "2020 – Present",
+        location: "Remote",
+        status: "current",
+        color: "#1A1A1A",
+        description:
+          "Writing technical articles on software engineering fundamentals, Linux, web development, and developer tooling. Topics span PHP OOP patterns, Git workflows, OS boot internals, and more.",
+        technologies: ["PHP", "MySQL", "Git", "Linux", "Web Development"],
+        bullets: [
+          "PHP CRUD with MySQL — OOP patterns for maintainable database layers",
+          "Two-part Git & GitHub series introducing version control to beginners",
+          "Deep-dive into the PC boot process and operating system internals",
+        ],
+      },
     ],
   },
 ];
 
-const NAVBAR = 80;
-const STACK_INDENT = 14; // each card peeks 14px lower than the previous
+const TAB_META = {
+  industry:  { badge: "bg-accent-blue/10 text-accent-blue border-accent-blue/25", ring: "border-accent-blue shadow-[0_0_0_1px_rgba(108,99,255,0.4)]" },
+  contract:  { badge: "bg-violet-500/10 text-violet-400 border-violet-500/25",   ring: "border-violet-500 shadow-[0_0_0_1px_rgba(124,58,237,0.4)]" },
+  community: { badge: "bg-pink-400/10 text-pink-400 border-pink-400/25",          ring: "border-pink-400 shadow-[0_0_0_1px_rgba(244,114,182,0.4)]" },
+} as const;
 
-export const Experience = () => {
-  const hasMounted = useHasMounted();
-  const [tilt, setTilt] = useState<{ [key: number]: { x: number; y: number } }>({});
 
-  // ── Native scroll-driven scale + dim ────────────────────────────────────
-  useEffect(() => {
-    if (!hasMounted) return;
+// ─── Stacked cards for one group ──────────────────────────────────────────────
 
-    const onScroll = () => {
-      const wrappers = document.querySelectorAll<HTMLElement>(".exp-wrapper");
-      wrappers.forEach((wrapper, i) => {
-        if (i === wrappers.length - 1) return; // last card doesn't scale
-        const card = wrapper.querySelector<HTMLElement>(".exp-card-inner");
-        if (!card) return;
-
-        const rect = wrapper.getBoundingClientRect();
-        // progress: 0 when wrapper top hits viewport top, 1 when wrapper has fully scrolled past
-        const progress = Math.max(0, Math.min(1, -rect.top / rect.height));
-        const scale = 1 - 0.13 * progress;          // 1.0 → 0.87
-        const brightness = 1 - 0.38 * progress;     // 1.0 → 0.62
-
-        card.style.transform = `scale(${scale})`;
-        card.style.filter = `brightness(${brightness})`;
-      });
-    };
-
-    window.addEventListener("scroll", onScroll, { passive: true });
-    onScroll(); // run once on mount
-    return () => window.removeEventListener("scroll", onScroll);
-  }, [hasMounted]);
+const GroupStack = ({ groupKey, experiences: exps }: { groupKey: string; experiences: typeof groups[0]["experiences"] }) => {
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const [tilt, setTilt] = useState<{ [k: number]: { x: number; y: number } }>({});
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>, i: number) => {
     const rect = e.currentTarget.getBoundingClientRect();
-    const x = ((e.clientX - rect.left) / rect.width - 0.5) * 14;
-    const y = ((e.clientY - rect.top) / rect.height - 0.5) * -14;
-    setTilt((prev) => ({ ...prev, [i]: { x, y } }));
+    setTilt((p) => ({ ...p, [i]: { x: ((e.clientX - rect.left) / rect.width - 0.5) * 14, y: ((e.clientY - rect.top) / rect.height - 0.5) * -14 } }));
   };
+  const handleMouseLeave = (i: number) => setTilt((p) => ({ ...p, [i]: { x: 0, y: 0 } }));
 
-  const handleMouseLeave = (i: number) =>
-    setTilt((prev) => ({ ...prev, [i]: { x: 0, y: 0 } }));
+  return (
+    <div ref={sectionRef}>
+      {exps.map((exp, i) => {
+        return (
+          <div
+            key={i}
+            className="exp-wrapper mb-6"
+          >
+            <div style={{ zIndex: i + 1 }}>
+              <motion.div
+                initial={{ opacity: 0, y: 60 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-80px" }}
+                transition={{ duration: 0.7, ease: [0.33, 1, 0.68, 1] }}
+              >
+                <div
+                  className="exp-card-inner"
+                  style={{ transformOrigin: "top center", willChange: "transform, filter" }}
+                  onMouseMove={(e) => handleMouseMove(e, i)}
+                  onMouseLeave={() => handleMouseLeave(i)}
+                >
+                  <div
+                    style={{
+                      transform: tilt[i]
+                        ? `perspective(1200px) rotateX(${tilt[i].y}deg) rotateY(${tilt[i].x}deg)`
+                        : "none",
+                      transition: "transform 0.2s ease-out",
+                    }}
+                    className="relative bg-surface border border-border-subtle rounded-3xl overflow-hidden shadow-2xl group hover:border-accent-blue/30 transition-colors duration-500"
+                  >
+                    <div className="absolute top-0 left-0 w-1.5 h-full opacity-80" style={{ backgroundColor: exp.color }} />
+                    <div className="p-6 md:p-10">
+                      <div className="flex flex-col md:flex-row md:justify-between md:items-start gap-4 mb-8">
+                        <div className="space-y-2">
+                          <div className="flex items-center gap-3">
+                            {exp.status === "current" && (
+                              <span className="relative flex h-2.5 w-2.5">
+                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent-green opacity-75" />
+                                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-accent-green" />
+                              </span>
+                            )}
+                            <span className="text-xs font-mono uppercase tracking-widest text-accent-blue font-bold">{exp.period}</span>
+                          </div>
+                          <h3 className="text-2xl md:text-4xl font-display font-bold text-text-primary group-hover:text-accent-blue transition-colors">
+                            {exp.company}
+                          </h3>
+                          <h4 className="text-base md:text-xl font-display font-medium text-text-body underline decoration-accent-blue/30 decoration-2 underline-offset-4">
+                            {exp.role}
+                          </h4>
+                        </div>
+                        <span className="text-[10px] font-mono text-text-muted border border-border-subtle px-3 py-1 rounded uppercase tracking-widest self-start shrink-0">
+                          {exp.location}
+                        </span>
+                      </div>
+                      <p className="text-text-body text-lg max-w-3xl leading-relaxed mb-8">{exp.description}</p>
+                      <ul className="space-y-2 mb-8">
+                        {exp.bullets.map((b, j) => (
+                          <li key={j} className="flex items-start gap-3 text-text-muted text-sm">
+                            <span className="text-accent-green font-mono shrink-0 mt-0.5">▸</span>
+                            {b}
+                          </li>
+                        ))}
+                      </ul>
+                      <div className="flex flex-wrap gap-3">
+                        {exp.technologies.map((tech) => (
+                          <span key={tech} className="px-4 py-1.5 bg-background/50 border border-border-subtle rounded-full text-[10px] font-mono text-text-muted hover:border-accent-blue hover:text-accent-blue transition-all cursor-default">
+                            {tech}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  );
+};
+
+// ─── Main component ───────────────────────────────────────────────────────────
+
+export const Experience = () => {
+  const hasMounted = useHasMounted();
+  const [activeTab, setActiveTab] = useState("industry");
 
   if (!hasMounted)
     return <section id="experience" className="bg-background min-h-[600px]" />;
+
+  const activeGroup = groups.find((g) => g.key === activeTab)!;
+  const meta = TAB_META[activeTab as keyof typeof TAB_META];
 
   return (
     <section id="experience" className="bg-background px-6 lg:px-24 pt-32">
@@ -175,7 +302,7 @@ export const Experience = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="flex items-center gap-4 mb-24"
+          className="flex items-center gap-4 mb-16"
         >
           <span className="font-mono text-accent-blue font-bold tracking-widest uppercase">02.</span>
           <h2 className="text-3xl font-display font-bold uppercase tracking-widest text-text-primary">
@@ -184,119 +311,63 @@ export const Experience = () => {
           <div className="h-px bg-border-subtle flex-1" />
         </motion.div>
 
-        <div>
-          {experiences.map((exp, i) => {
-            const isLast = i === experiences.length - 1;
-            const stickyTop = NAVBAR + i * STACK_INDENT;
-
+        {/* Tab switcher */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.1 }}
+          className="flex flex-wrap gap-3 mb-20"
+        >
+          {groups.map((g) => {
+            const m = TAB_META[g.key as keyof typeof TAB_META];
+            const isActive = activeTab === g.key;
             return (
-              /* exp-wrapper: scroll target for GSAP + provides scroll time via paddingBottom */
-              <div
-                key={i}
-                className="exp-wrapper"
-                style={{ paddingBottom: isLast ? "6rem" : "14vh" }}
+              <button
+                key={g.key}
+                onClick={() => setActiveTab(g.key)}
+                className={`relative flex items-center gap-2.5 px-5 py-2.5 rounded-xl border text-xs font-mono uppercase tracking-widest transition-all duration-300 ${
+                  isActive
+                    ? `${m.badge} ${m.ring}`
+                    : "border-border-subtle text-text-muted hover:text-text-primary hover:border-border-subtle/80"
+                }`}
               >
-                <div
-                  style={{
-                    position: "sticky",
-                    top: `${stickyTop}px`,
-                    zIndex: i + 1,
-                  }}
-                >
-                  <motion.div
-                    initial={{ opacity: 0, y: 60 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, margin: "-80px" }}
-                    transition={{ duration: 0.7, ease: [0.33, 1, 0.68, 1] }}
-                  >
-                    {/* exp-card-inner: GSAP animates scale + brightness on this */}
-                    <div
-                      className="exp-card-inner"
-                      style={{
-                        transformOrigin: "top center",
-                        willChange: "transform, filter",
-                      }}
-                      onMouseMove={(e) => handleMouseMove(e, i)}
-                      onMouseLeave={() => handleMouseLeave(i)}
-                    >
-                      {/* 3-D tilt — separate inner div so it doesn't conflict with GSAP */}
-                      <div
-                        style={{
-                          transform: tilt[i]
-                            ? `perspective(1200px) rotateX(${tilt[i].y}deg) rotateY(${tilt[i].x}deg)`
-                            : "none",
-                          transition: "transform 0.2s ease-out",
-                        }}
-                        className="bg-surface border border-border-subtle rounded-3xl overflow-hidden shadow-2xl group hover:border-accent-blue/30 transition-colors duration-500 lighting-edge"
-                      >
-                        {/* Left colour accent bar */}
-                        <div
-                          className="absolute top-0 left-0 w-1.5 h-full opacity-80"
-                          style={{ backgroundColor: exp.color }}
-                        />
-
-                        <div className="p-8 md:p-12">
-                          {/* Header */}
-                          <div className="flex flex-col md:flex-row md:justify-between md:items-start gap-4 mb-8">
-                            <div className="space-y-2">
-                              <div className="flex items-center gap-3">
-                                {exp.status === "current" && (
-                                  <span className="relative flex h-2.5 w-2.5">
-                                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent-green opacity-75" />
-                                    <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-accent-green" />
-                                  </span>
-                                )}
-                                <span className="text-xs font-mono uppercase tracking-widest text-accent-blue font-bold">
-                                  {exp.period}
-                                </span>
-                              </div>
-                              <h3 className="text-3xl md:text-5xl font-display font-bold text-text-primary group-hover:text-accent-blue transition-colors">
-                                {exp.company}
-                              </h3>
-                              <h4 className="text-lg md:text-xl font-display font-medium text-text-body underline decoration-accent-blue/30 decoration-2 underline-offset-4">
-                                {exp.role}
-                              </h4>
-                            </div>
-                            <span className="text-[10px] font-mono text-text-muted border border-border-subtle px-3 py-1 rounded uppercase tracking-widest self-start shrink-0">
-                              {exp.location}
-                            </span>
-                          </div>
-
-                          {/* Description */}
-                          <p className="text-text-body text-lg max-w-3xl leading-relaxed mb-8">
-                            {exp.description}
-                          </p>
-
-                          {/* Bullets */}
-                          <ul className="space-y-2 mb-8">
-                            {exp.bullets.map((b, j) => (
-                              <li key={j} className="flex items-start gap-3 text-text-muted text-sm">
-                                <span className="text-accent-green font-mono shrink-0 mt-0.5">▸</span>
-                                {b}
-                              </li>
-                            ))}
-                          </ul>
-
-                          {/* Tech tags */}
-                          <div className="flex flex-wrap gap-3">
-                            {exp.technologies.map((tech) => (
-                              <span
-                                key={tech}
-                                className="px-4 py-1.5 bg-background/50 border border-border-subtle rounded-full text-[10px] font-mono text-text-muted hover:border-accent-blue hover:text-accent-blue transition-all cursor-default"
-                              >
-                                {tech}
-                              </span>
-                            ))}
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </motion.div>
-                </div>
-              </div>
+                <span className="text-base leading-none">{g.icon}</span>
+                {g.label}
+                <span className={`ml-1 px-1.5 py-0.5 rounded text-[9px] border ${isActive ? m.badge : "border-border-subtle text-text-muted"}`}>
+                  {g.experiences.length}
+                </span>
+              </button>
             );
           })}
-        </div>
+        </motion.div>
+
+        {/* Group description */}
+        <AnimatePresence mode="wait">
+          <motion.p
+            key={activeTab + "-desc"}
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.25 }}
+            className="text-sm font-mono text-text-muted uppercase tracking-widest mb-12"
+          >
+            <span style={{ color: activeGroup.color }}>◆</span> {activeGroup.description}
+          </motion.p>
+        </AnimatePresence>
+
+        {/* Stacked cards — re-mount on tab change so GSAP reinitialises */}
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={activeTab}
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.35, ease: [0.33, 1, 0.68, 1] }}
+          >
+            <GroupStack key={activeTab} groupKey={activeTab} experiences={activeGroup.experiences} />
+          </motion.div>
+        </AnimatePresence>
       </div>
     </section>
   );

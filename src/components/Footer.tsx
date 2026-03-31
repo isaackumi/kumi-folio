@@ -22,6 +22,8 @@ export const Footer = () => {
           {[
             { label: "GitHub", href: "https://github.com/isaackumi" },
             { label: "LinkedIn", href: "https://linkedin.com/in/isaackumi" },
+            { label: "YouTube", href: "https://www.youtube.com/@openingtag1090" },
+            { label: "Medium", href: "https://medium.com/@isaackumi" },
             { label: "Dev.to", href: "https://dev.to/isaackumi" },
             { label: "Email", href: "mailto:isaac.k.kumi29@gmail.com" },
           ].map((link) => (
