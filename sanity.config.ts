@@ -16,6 +16,10 @@ export default defineConfig({
         S.list()
           .title("Content")
           .items([
+            S.listItem().title("Blog Posts").schemaType("post").child(
+              S.documentList().title("Blog Posts").filter('_type == "post"').defaultOrdering([{ field: "publishedAt", direction: "desc" }])
+            ),
+            S.divider(),
             S.listItem().title("Experience").schemaType("experience").child(
               S.documentList().title("Work Experience").filter('_type == "experience"').defaultOrdering([{ field: "order", direction: "asc" }])
             ),

@@ -47,6 +47,41 @@ export const certificationsQuery = groq`
   }
 `;
 
+export const postsQuery = groq`
+  *[_type == "post"] | order(publishedAt desc) {
+    _id,
+    title,
+    slug,
+    publishedAt,
+    excerpt,
+    tags,
+    readTime,
+    featured,
+    coverImage { asset->{ url }, alt },
+  }
+`;
+
+export const postBySlugQuery = groq`
+  *[_type == "post" && slug.current == $slug][0] {
+    _id,
+    title,
+    slug,
+    publishedAt,
+    excerpt,
+    tags,
+    readTime,
+    featured,
+    coverImage { asset->{ url }, alt },
+    body[] {
+      ...,
+      _type == "image" => {
+        ...,
+        asset->{ url }
+      }
+    }
+  }
+`;
+
 export const skillsQuery = groq`
   *[_type == "skillCategory"] | order(order asc) {
     _id,

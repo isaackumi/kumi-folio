@@ -11,11 +11,11 @@ const navLinks = [
   { name: "Experience", href: "#experience" },
   { name: "Projects",   href: "#projects" },
   { name: "Skills",     href: "#skills" },
-  { name: "Blog",       href: "#blog" },
+  { name: "Blog",       href: "/blog" },
   { name: "Contact",    href: "#contact" },
 ];
 
-const sectionIds = ["about", "experience", "projects", "skills", "blog", "contact"];
+const sectionIds = ["about", "experience", "projects", "skills", "contact"];
 
 export const Navbar = () => {
   const [isScrolled, setIsScrolled]           = useState(false);
