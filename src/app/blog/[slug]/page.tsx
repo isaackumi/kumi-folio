@@ -233,7 +233,7 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
   if (!post) notFound();
 
   return (
-    <main className="min-h-screen bg-background pt-28 pb-24 px-6 lg:px-24">
+    <main className="min-h-screen bg-background pt-20 pb-16 px-5 md:px-10 lg:px-24">
       <div className="container mx-auto max-w-3xl">
 
         {/* Back link */}
@@ -259,12 +259,12 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
             </div>
           )}
 
-          <h1 className="text-4xl md:text-6xl font-display font-bold leading-tight tracking-tighter text-text-primary">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-display font-bold leading-tight tracking-tighter text-text-primary">
             {post.title}
           </h1>
 
           {post.excerpt && (
-            <p className="text-xl text-text-muted leading-relaxed">{post.excerpt}</p>
+            <p className="text-base sm:text-lg text-text-muted leading-relaxed">{post.excerpt}</p>
           )}
 
           <div className="flex items-center gap-6 text-[10px] font-mono uppercase tracking-widest text-text-muted pt-2 border-t border-border-subtle">

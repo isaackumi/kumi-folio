@@ -89,9 +89,9 @@ export const Contact = () => {
   };
 
   return (
-    <section id="contact" className="bg-surface/30 py-32 px-6 lg:px-24 border-t border-border-subtle">
+    <section id="contact" className="bg-surface/30 py-16 md:py-24 lg:py-32 px-6 lg:px-24 border-t border-border-subtle">
       <div className="container mx-auto max-w-5xl">
-        <div className="grid lg:grid-cols-2 gap-16">
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-16">
           {/* Left copy */}
           <div className="space-y-8">
             <div className="flex items-center gap-4">
@@ -100,7 +100,7 @@ export const Contact = () => {
                 Contact
               </h2>
             </div>
-            <h3 className="text-5xl md:text-6xl font-display font-bold leading-tight">
+            <h3 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-display font-bold leading-tight">
               Let&apos;s build something <span className="text-accent-blue">reliable.</span>
             </h3>
             <p className="text-text-muted text-lg max-w-md leading-relaxed">
@@ -159,7 +159,7 @@ export const Contact = () => {
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
             onSubmit={handleSubmit}
-            className="space-y-5 p-8 bg-surface rounded-3xl border border-border-subtle shadow-xl"
+            className="space-y-5 p-5 sm:p-8 bg-surface rounded-3xl border border-border-subtle shadow-xl"
           >
             <div className="grid md:grid-cols-2 gap-4">
               <div className="space-y-2">

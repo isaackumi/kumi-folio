@@ -203,7 +203,7 @@ export const Certifications = () => {
   const [openGroup, setOpenGroup] = useState<string | null>("aws");
 
   return (
-    <section id="certs" className="bg-surface/10 py-32 px-6 lg:px-24 border-t border-border-subtle">
+    <section id="certs" className="bg-surface/10 py-16 md:py-24 lg:py-32 px-6 lg:px-24 border-t border-border-subtle">
       <div className="container mx-auto">
         {/* Header */}
         <motion.div
@@ -211,7 +211,7 @@ export const Certifications = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="flex items-center gap-4 mb-16"
+          className="flex items-center gap-4 mb-8 md:mb-12 lg:mb-16"
         >
           <span className="font-mono text-accent-blue font-bold tracking-widest uppercase">07.</span>
           <h2 className="text-3xl font-display font-bold uppercase tracking-widest text-text-primary">

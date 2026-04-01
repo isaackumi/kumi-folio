@@ -19,9 +19,9 @@ const services = [
 
 export const Homelab = () => {
   return (
-    <section id="lab" className="bg-surface/30 py-32 px-6 lg:px-24 border-t border-border-subtle">
+    <section id="lab" className="bg-surface/30 py-16 md:py-24 lg:py-32 px-6 lg:px-24 border-t border-border-subtle">
       <div className="container mx-auto">
-        <div className="flex items-center gap-4 mb-16">
+        <div className="flex items-center gap-4 mb-8 md:mb-12 lg:mb-16">
           <span className="font-mono text-accent-blue font-bold tracking-widest uppercase">05.</span>
           <h2 className="text-3xl font-display font-bold uppercase tracking-widest text-text-primary">
             The_Lab
@@ -29,10 +29,10 @@ export const Homelab = () => {
           <div className="h-px bg-border-subtle flex-1" />
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-16 items-start">
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-start">
           <div className="space-y-12">
             <div className="space-y-6">
-              <h3 className="text-4xl md:text-5xl font-display font-bold leading-tight">
+              <h3 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-display font-bold leading-tight">
                 What&apos;s running in my cluster right now
               </h3>
               <p className="text-text-muted text-lg font-sans leading-relaxed max-w-xl">
@@ -60,7 +60,7 @@ export const Homelab = () => {
 
           <div className="relative">
             {/* Animated Node Graph SVG */}
-            <div className="p-8 bg-surface rounded-3xl border border-border-subtle glow relative overflow-hidden aspect-square flex items-center justify-center">
+            <div className="p-5 sm:p-8 bg-surface rounded-3xl border border-border-subtle glow relative overflow-hidden aspect-square flex items-center justify-center">
               <div className="absolute inset-0 dot-grid opacity-20" />
               
               <svg width="400" height="400" viewBox="0 0 400 400" className="relative z-10 w-full h-full">

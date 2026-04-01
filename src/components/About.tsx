@@ -36,7 +36,7 @@ function CountUp({ to, suffix, color }: { to: number; suffix: string; color: str
   }, [inView, to, suffix]);
 
   return (
-    <span ref={ref} style={{ color }} className="text-4xl md:text-5xl font-display font-bold leading-none">
+    <span ref={ref} style={{ color }} className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-display font-bold leading-none">
       0{suffix}
     </span>
   );
@@ -46,14 +46,14 @@ export const About = () => {
   const hasMounted = useHasMounted();
 
   if (!hasMounted)
-    return <section id="about" className="py-32 px-6 lg:px-24 bg-surface/30 min-h-[600px]" />;
+    return <section id="about" className="py-16 md:py-24 lg:py-32 px-6 lg:px-24 bg-surface/30 min-h-[600px]" />;
 
   return (
-    <section id="about" className="py-32 px-6 lg:px-24 bg-surface/30 relative overflow-hidden">
+    <section id="about" className="py-16 md:py-24 lg:py-32 px-6 lg:px-24 bg-surface/30 relative overflow-hidden">
       {/* Subtle background texture */}
       <div className="absolute inset-0 dot-grid pointer-events-none" />
 
-      <div className="container mx-auto relative z-10 space-y-16">
+      <div className="container mx-auto relative z-10 space-y-8 md:space-y-12 lg:space-y-16">
 
         {/* Section label */}
         <motion.div
@@ -71,7 +71,7 @@ export const About = () => {
         </motion.div>
 
         {/* Main two-column layout */}
-        <div className="grid lg:grid-cols-12 gap-8 items-start">
+        <div className="grid lg:grid-cols-12 gap-6 lg:gap-8 items-start">
 
           {/* Left: Bio */}
           <motion.div
@@ -82,7 +82,7 @@ export const About = () => {
             className="lg:col-span-7 space-y-8"
           >
             {/* Pull quote */}
-            <h3 className="text-3xl md:text-4xl font-display font-bold leading-snug text-text-primary">
+            <h3 className="text-2xl sm:text-3xl md:text-4xl font-display font-bold leading-snug text-text-primary">
               I build systems that{" "}
               <span className="gradient-text">don&apos;t sleep</span>{" "}
               — and teach people to build them too.

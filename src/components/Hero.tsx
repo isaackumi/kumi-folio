@@ -43,7 +43,7 @@ export const Hero = () => {
   if (!hasMounted) {
     return (
       <section className="relative min-h-screen flex flex-col items-center justify-center pt-24 pb-16 px-6 lg:px-24 overflow-hidden bg-background">
-        <div className="container mx-auto grid lg:grid-cols-12 gap-12 items-center relative z-10">
+        <div className="container mx-auto grid lg:grid-cols-12 gap-6 md:gap-10 lg:gap-12 items-center relative z-10">
           <div className="lg:col-span-6 flex flex-col items-start space-y-10 opacity-0" />
         </div>
       </section>
@@ -61,7 +61,7 @@ export const Hero = () => {
       <div className="container mx-auto grid lg:grid-cols-12 gap-10 lg:gap-16 items-center relative z-10">
 
         {/* ── Left Column ── */}
-        <div className="lg:col-span-6 flex flex-col items-start space-y-8">
+        <div className="lg:col-span-6 flex flex-col items-start space-y-6 lg:space-y-8">
 
           {/* Location + availability */}
           <motion.div
@@ -88,7 +88,7 @@ export const Hero = () => {
               initial={{ opacity: 0, x: -40 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.2, duration: 0.9, ease: [0.33, 1, 0.68, 1] }}
-              className="text-6xl md:text-7xl lg:text-8xl font-display font-bold leading-none tracking-tighter text-text-primary"
+              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-display font-bold leading-none tracking-tighter text-text-primary"
             >
               Isaac<br />
               <span className="gradient-text drop-shadow-[0_0_30px_rgba(99,102,241,0.4)]">Kumi.</span>

@@ -53,16 +53,16 @@ export default async function BlogPage() {
   const rest = posts.filter((p) => !p.featured);
 
   return (
-    <main className="min-h-screen bg-background pt-28 pb-24 px-6 lg:px-24">
+    <main className="min-h-screen bg-background pt-20 pb-16 px-5 md:px-10 lg:px-24">
       <div className="container mx-auto max-w-6xl">
 
         {/* Header */}
-        <div className="mb-16 space-y-4">
+        <div className="mb-8 md:mb-12 lg:mb-16 space-y-4">
           <div className="flex items-center gap-4">
             <span className="font-mono text-accent-blue font-bold tracking-widest uppercase text-sm">~/blog</span>
             <div className="h-px bg-border-subtle flex-1" />
           </div>
-          <h1 className="text-5xl md:text-7xl font-display font-bold leading-none tracking-tighter text-text-primary">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-display font-bold leading-none tracking-tighter text-text-primary">
             Writing
           </h1>
           <p className="text-text-muted text-lg max-w-xl font-sans leading-relaxed">
@@ -103,7 +103,7 @@ export default async function BlogPage() {
                       <div className="absolute inset-0 bg-gradient-to-t from-surface via-surface/30 to-transparent" />
                     </div>
                   )}
-                  <div className="p-8 md:p-12">
+                  <div className="p-5 sm:p-8 md:p-12">
                     <div className="flex flex-wrap items-center gap-3 mb-4">
                       <span className="px-3 py-1 bg-accent-blue text-white rounded-full text-[10px] font-mono uppercase tracking-widest">
                         Featured
@@ -114,7 +114,7 @@ export default async function BlogPage() {
                         </span>
                       ))}
                     </div>
-                    <h2 className="text-3xl md:text-4xl font-display font-bold text-text-primary group-hover:text-accent-blue transition-colors mb-3 leading-tight">
+                    <h2 className="text-xl sm:text-2xl md:text-3xl font-display font-bold text-text-primary group-hover:text-accent-blue transition-colors mb-3 leading-tight">
                       {featured.title}
                     </h2>
                     {featured.excerpt && (

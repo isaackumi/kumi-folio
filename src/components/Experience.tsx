@@ -242,7 +242,7 @@ const GroupStack = ({ groupKey, experiences: exps }: { groupKey: string; experie
                             )}
                             <span className="text-xs font-mono uppercase tracking-widest text-accent-blue font-bold">{exp.period}</span>
                           </div>
-                          <h3 className="text-2xl md:text-4xl font-display font-bold text-text-primary group-hover:text-accent-blue transition-colors">
+                          <h3 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-display font-bold text-text-primary group-hover:text-accent-blue transition-colors">
                             {exp.company}
                           </h3>
                           <h4 className="text-base md:text-xl font-display font-medium text-text-body underline decoration-accent-blue/30 decoration-2 underline-offset-4">
@@ -294,7 +294,7 @@ export const Experience = () => {
   const meta = TAB_META[activeTab as keyof typeof TAB_META];
 
   return (
-    <section id="experience" className="bg-background px-6 lg:px-24 pt-32">
+    <section id="experience" className="bg-background px-6 lg:px-24 pt-16 md:pt-24 lg:pt-32">
       <div className="container mx-auto">
         {/* Section header */}
         <motion.div
@@ -302,7 +302,7 @@ export const Experience = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="flex items-center gap-4 mb-16"
+          className="flex items-center gap-4 mb-8 md:mb-12 lg:mb-16"
         >
           <span className="font-mono text-accent-blue font-bold tracking-widest uppercase">02.</span>
           <h2 className="text-3xl font-display font-bold uppercase tracking-widest text-text-primary">
@@ -317,7 +317,7 @@ export const Experience = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.1 }}
-          className="flex flex-wrap gap-3 mb-20"
+          className="flex flex-wrap gap-3 mb-10 md:mb-14 lg:mb-20"
         >
           {groups.map((g) => {
             const m = TAB_META[g.key as keyof typeof TAB_META];
@@ -350,7 +350,7 @@ export const Experience = () => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
             transition={{ duration: 0.25 }}
-            className="text-sm font-mono text-text-muted uppercase tracking-widest mb-12"
+            className="text-sm font-mono text-text-muted uppercase tracking-widest mb-6 md:mb-10 lg:mb-12"
           >
             <span style={{ color: activeGroup.color }}>◆</span> {activeGroup.description}
           </motion.p>

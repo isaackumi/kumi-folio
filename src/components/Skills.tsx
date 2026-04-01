@@ -91,7 +91,7 @@ export const Skills = () => {
     return <section id="skills" className="bg-background min-h-[400px]" />;
 
   return (
-    <section id="skills" className="bg-background py-32 px-6 lg:px-24">
+    <section id="skills" className="bg-background py-16 md:py-24 lg:py-32 px-6 lg:px-24">
       <div className="container mx-auto">
 
         {/* Header */}
@@ -100,7 +100,7 @@ export const Skills = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="flex items-center gap-4 mb-20"
+          className="flex items-center gap-4 mb-10 md:mb-14 lg:mb-20"
         >
           <span className="font-mono text-accent-blue font-bold tracking-widest uppercase">04.</span>
           <h2 className="text-3xl font-display font-bold uppercase tracking-widest text-text-primary">

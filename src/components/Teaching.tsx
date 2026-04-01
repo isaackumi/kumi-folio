@@ -80,7 +80,7 @@ export const Teaching = () => {
     return <section id="teaching" className="bg-background min-h-[600px]" />;
 
   return (
-    <section id="teaching" className="bg-background py-32 px-6 lg:px-24">
+    <section id="teaching" className="bg-background py-16 md:py-24 lg:py-32 px-6 lg:px-24">
       <div className="container mx-auto">
 
         {/* Header */}
@@ -89,7 +89,7 @@ export const Teaching = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="flex items-center gap-4 mb-20"
+          className="flex items-center gap-4 mb-10 md:mb-14 lg:mb-20"
         >
           <span className="font-mono text-accent-blue font-bold tracking-widest uppercase">06.</span>
           <h2 className="text-3xl font-display font-bold uppercase tracking-widest text-text-primary">
@@ -99,7 +99,7 @@ export const Teaching = () => {
         </motion.div>
 
         {/* Hero copy + stats */}
-        <div className="grid lg:grid-cols-2 gap-16 items-center mb-20">
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center mb-10 md:mb-14 lg:mb-20">
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -107,7 +107,7 @@ export const Teaching = () => {
             transition={{ duration: 0.7, ease: [0.33, 1, 0.68, 1] }}
             className="space-y-6"
           >
-            <h3 className="text-4xl md:text-5xl font-display font-bold leading-tight text-text-primary">
+            <h3 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-display font-bold leading-tight text-text-primary">
               From classrooms to Kubernetes clusters —<br />
               <span className="text-accent-blue">I&apos;ve always taught.</span>
             </h3>
@@ -131,7 +131,7 @@ export const Teaching = () => {
                 whileHover={{ y: -4, scale: 1.03 }}
                 className="p-6 bg-surface border border-border-subtle rounded-3xl flex flex-col items-center justify-center text-center shadow-md hover:shadow-xl hover:border-accent-blue/30 transition-all lighting-edge"
               >
-                <span className={`text-4xl font-display font-bold ${stat.color}`}>{stat.value}</span>
+                <span className={`text-2xl sm:text-3xl md:text-4xl font-display font-bold ${stat.color}`}>{stat.value}</span>
                 <span className="text-[10px] uppercase tracking-widest text-text-muted mt-2 font-mono">{stat.label}</span>
               </motion.div>
             ))}
