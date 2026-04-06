@@ -6,6 +6,26 @@ import { useHasMounted } from "@/hooks/useHasMounted";
 
 const projects = [
   {
+    title: "Nsuo",
+    description:
+      "SaaS for fish farmers in Ghana — track feed, FCR, sampling, harvest, mortality, and day-to-day operations in one place. Built for real aquaculture workflows, not generic spreadsheets.",
+    tech: ["Next.js", "NestJS", "PostgreSQL", "Redis", "MinIO", "Meilisearch"],
+    tags: ["SaaS", "Agriculture"],
+    stat: "Active build · Ghana",
+    links: [{ label: "Get in touch", href: "#contact" }],
+    gradient: "from-cyan-500/20 to-transparent",
+  },
+  {
+    title: "uniPartner",
+    description:
+      "Past-question and practice platform for students across Ghanaian universities. Earn passive income by contributing solutions, plus a dedicated module for Mature Entrance exam prep.",
+    tech: ["Next.js", "TypeScript", "PostgreSQL", "Redis"],
+    tags: ["EdTech", "Fullstack"],
+    stat: "Student-focused · Ghana",
+    links: [{ label: "Get in touch", href: "#contact" }],
+    gradient: "from-indigo-500/20 to-transparent",
+  },
+  {
     title: "PyWebGuard",
     description:
       "Open-source Flask security middleware — a Web Application Firewall that protects against SQL injection, XSS, CSRF, and rate-limit attacks out of the box.",
@@ -127,8 +147,16 @@ const ProjectsContent = () => {
                 <div
                   className={`aspect-video bg-surface overflow-hidden rounded-3xl border border-border-subtle group-hover:border-accent-blue/50 transition-all relative shadow-2xl lighting-edge bg-gradient-to-br ${project.gradient} cursor-pointer`}
                   onClick={() => {
-                    const href = project.links[0].href !== "#" ? project.links[0].href : (project.links[1]?.href ?? null);
-                    if (href) window.open(href, "_blank", "noopener,noreferrer");
+                    const raw =
+                      project.links[0].href !== "#"
+                        ? project.links[0].href
+                        : (project.links[1]?.href ?? null);
+                    if (!raw) return;
+                    if (raw.startsWith("#") && raw.length > 1) {
+                      document.querySelector(raw)?.scrollIntoView({ behavior: "smooth" });
+                      return;
+                    }
+                    window.open(raw, "_blank", "noopener,noreferrer");
                   }}
                 >
                   <div className="absolute inset-0 flex flex-col justify-between p-6 md:p-8">
@@ -148,10 +176,16 @@ const ProjectsContent = () => {
                           <a
                             key={link.label}
                             href={link.href}
-                            target="_blank"
-                            rel="noopener noreferrer"
+                            target={link.href.startsWith("#") ? undefined : "_blank"}
+                            rel={link.href.startsWith("#") ? undefined : "noopener noreferrer"}
                             className="text-[9px] font-mono uppercase tracking-widest px-3 py-1 border border-accent-blue/40 rounded text-accent-blue hover:bg-accent-blue hover:text-white transition-all"
-                            onClick={(e) => e.stopPropagation()}
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              if (link.href.startsWith("#") && link.href.length > 1) {
+                                e.preventDefault();
+                                document.querySelector(link.href)?.scrollIntoView({ behavior: "smooth" });
+                              }
+                            }}
                           >
                             [{link.label}]
                           </a>

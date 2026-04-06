@@ -25,18 +25,44 @@ export const ScrollProvider = ({ children }: { children: React.ReactNode }) => {
 
     lenisRef.current = lenis;
 
-    // Hook Lenis into GSAP ScrollTrigger
     lenis.on("scroll", ScrollTrigger.update);
 
-    gsap.ticker.add((time) => {
+    const raf = (time: number) => {
       lenis.raf(time * 1000);
-    });
-
+    };
+    gsap.ticker.add(raf);
     gsap.ticker.lagSmoothing(0);
 
+    let debounce = 0;
+    const syncScrollMetrics = () => {
+      window.clearTimeout(debounce);
+      debounce = window.setTimeout(() => {
+        debounce = 0;
+        lenis.resize();
+        ScrollTrigger.refresh();
+      }, 120);
+    };
+
+    const syncScrollMetricsImmediate = () => {
+      window.clearTimeout(debounce);
+      debounce = 0;
+      lenis.resize();
+      ScrollTrigger.refresh();
+    };
+
+    window.addEventListener("resize", syncScrollMetricsImmediate, { passive: true });
+    const ro = new ResizeObserver(syncScrollMetrics);
+    ro.observe(document.body);
+
+    syncScrollMetricsImmediate();
+
     return () => {
-      gsap.ticker.remove((time) => lenis.raf(time * 1000));
+      window.removeEventListener("resize", syncScrollMetricsImmediate);
+      ro.disconnect();
+      window.clearTimeout(debounce);
+      gsap.ticker.remove(raf);
       lenis.destroy();
+      lenisRef.current = null;
     };
   }, []);
 

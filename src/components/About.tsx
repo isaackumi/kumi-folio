@@ -14,6 +14,7 @@ const stats = [
 const highlights = [
   { icon: "⚙", text: "Production SRE across fintech, retail & edtech" },
   { icon: "☁", text: "Multi-cloud infra on AWS & Azure at scale" },
+  { icon: "🌾", text: "Product work on Nsuo (aquaculture SaaS) & uniPartner (exam prep) in Ghana" },
   { icon: "🔓", text: "18K+ downloads on PyWebGuard open-source security lib" },
   { icon: "🎓", text: "Taught 100+ students at Ashesi University" },
   { icon: "📡", text: "Kubernetes homelab running 24/7 for fun" },
@@ -95,11 +96,18 @@ export const About = () => {
                 <strong className="text-text-primary font-semibold">SRE, DevOps, cloud infrastructure</strong>, and
                 fullstack engineering. From fintech platforms in Accra to retail automation pipelines
                 in Santa Clara — I&apos;ve kept production systems alive, scaling, and shipping.
+                Lately I&apos;m deep in product:{" "}
+                <strong className="text-text-primary font-semibold">Nsuo</strong> (aquaculture operations SaaS for
+                fish farmers) and <strong className="text-text-primary font-semibold">uniPartner</strong> (past papers
+                &amp; exam prep across Ghanaian universities, including Mature Entrance).
               </p>
               <p>
                 I wrote open-source Python security tooling downloaded <strong className="text-text-primary font-semibold">18,000+ times</strong>,
                 shipped a funded edtech platform, and spent years teaching hundreds of students to
-                write their first lines of code. I run a Kubernetes homelab for fun. The rare person
+                write their first lines of code. My MIS capstone at Ashesi was{" "}
+                <strong className="text-text-primary font-semibold">Fly-Deno</strong>, a Deno backend framework — plus a{" "}
+                <strong className="text-text-primary font-semibold">GRE 324</strong> (V161 / Q163) alongside that
+                systems-heavy path. I run a Kubernetes homelab for fun. The rare person
                 who can debug a failing pod <em>and</em> explain recursion to a freshman.
               </p>
             </div>

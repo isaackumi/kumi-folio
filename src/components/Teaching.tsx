@@ -13,6 +13,16 @@ const impactStats = [
 const roles = [
   {
     org: "Ashesi University",
+    role: "BSc. Management Information Systems",
+    period: "Sept 2017 – June 2021",
+    description:
+      "Degree bridging business, systems, and software delivery. Capstone: Fly-Deno — a Deno-based backend framework from JSON routing through a cohesive, developer-facing API. GRE 324 (Verbal 161, Quantitative 163).",
+    tags: ["MIS", "Capstone", "Systems", "Fly-Deno"],
+    color: "#0ea5e9",
+    icon: "📜",
+  },
+  {
+    org: "Ashesi University",
     role: "Teaching & Research Assistant",
     period: "May 2021 – Dec 2021",
     description:

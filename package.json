@@ -6,7 +6,10 @@
     "dev": "next dev",
     "build": "next build --webpack",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "codegraph:build": "code-review-graph build",
+    "codegraph:watch": "code-review-graph watch",
+    "codegraph:status": "code-review-graph status"
   },
   "dependencies": {
     "@portabletext/react": "^6.0.3",

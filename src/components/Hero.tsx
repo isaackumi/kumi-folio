@@ -35,7 +35,7 @@ const socials = [
   },
 ];
 
-const roles = ["SRE", "DevOps Engineer", "Cloud Architect", "OSS Author", "Educator"];
+const roles = ["SRE", "DevOps Engineer", "Cloud Architect", "Fullstack Product", "OSS Author", "Educator"];
 
 export const Hero = () => {
   const hasMounted = useHasMounted();

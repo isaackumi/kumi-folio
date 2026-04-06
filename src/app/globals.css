@@ -58,6 +58,11 @@
   --font-mono: var(--font-mono);
 }
 
+/* Framer Motion useScroll(container vs target) requires a non-static scroll root */
+html {
+  position: relative;
+}
+
 body {
   background: var(--background);
   color: var(--text-body);

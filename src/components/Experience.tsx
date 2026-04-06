@@ -189,7 +189,7 @@ const TAB_META = {
 
 // ─── Stacked cards for one group ──────────────────────────────────────────────
 
-const GroupStack = ({ groupKey, experiences: exps }: { groupKey: string; experiences: typeof groups[0]["experiences"] }) => {
+const GroupStack = ({ experiences: exps }: { experiences: typeof groups[0]["experiences"] }) => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const [tilt, setTilt] = useState<{ [k: number]: { x: number; y: number } }>({});
 
@@ -291,7 +291,6 @@ export const Experience = () => {
     return <section id="experience" className="bg-background min-h-[600px]" />;
 
   const activeGroup = groups.find((g) => g.key === activeTab)!;
-  const meta = TAB_META[activeTab as keyof typeof TAB_META];
 
   return (
     <section id="experience" className="bg-background px-6 lg:px-24 pt-16 md:pt-24 lg:pt-32">
@@ -365,7 +364,7 @@ export const Experience = () => {
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.35, ease: [0.33, 1, 0.68, 1] }}
           >
-            <GroupStack key={activeTab} groupKey={activeTab} experiences={activeGroup.experiences} />
+            <GroupStack key={activeTab} experiences={activeGroup.experiences} />
           </motion.div>
         </AnimatePresence>
       </div>

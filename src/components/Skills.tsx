@@ -49,6 +49,7 @@ const categories = [
     icon: "▲",
     items: [
       { name: "Next.js",  level: 90 },
+      { name: "NestJS",   level: 86 },
       { name: "FastAPI",  level: 88 },
       { name: "Flask",    level: 85 },
       { name: "Node.js",  level: 82 },

@@ -1,0 +1,31 @@
+# code-review-graph — exclude from indexing (repo root)
+# https://github.com/tirth8205/code-review-graph
+
+# Dependencies & toolchain
+node_modules/**
+.pnp/**
+.pnp.js
+
+# Next.js / build output
+.next/**
+out/**
+dist/**
+build/**
+.vercel/**
+
+# Sanity studio & generated
+.sanity/**
+
+# Tests & coverage
+coverage/**
+**/__snapshots__/**
+*.snap
+
+# Lockfiles & minified bundles (noise for structural graph)
+package-lock.json
+*.min.js
+*.min.css
+
+# Local graph DB (stored under .code-review-graph/)
+.code-review-graph/*.db
+.code-review-graph/*.db-*

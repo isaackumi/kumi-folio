@@ -1,0 +1,5 @@
+# code-review-graph — keep local SQLite & artifacts out of git
+# Track only this .gitignore so the directory is reproducible after `code-review-graph build`
+
+*
+!.gitignore

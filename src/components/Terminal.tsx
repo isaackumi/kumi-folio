@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useState, useRef } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 
 const commands = [
   { input: "whoami", output: "isaac-kumi" },
@@ -14,11 +14,9 @@ export const Terminal = () => {
   const [currentLine, setCurrentLine] = useState(0);
   const [displayedInput, setDisplayedInput] = useState("");
   const [showOutput, setShowOutput] = useState(false);
-  const [isComplete, setIsComplete] = useState(false);
 
   useEffect(() => {
     if (currentLine >= commands.length) {
-      setIsComplete(true);
       return;
     }
 
@@ -37,8 +35,6 @@ export const Terminal = () => {
             setCurrentLine(prev => prev + 1);
             setDisplayedInput("");
             setShowOutput(false);
-          } else {
-            setIsComplete(true);
           }
         }, 1500);
       }
